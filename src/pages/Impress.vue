@@ -1,0 +1,79 @@
+<template>
+  <div class="impress">
+    <h1>Buero fuer gute Massnahmen</h1>
+
+    <footer>
+      <section>
+        <h4>Anschrift</h4>
+        <p>
+          bfgm e.v.<br />
+          Jordan Strasse 9<br />
+          01099 Dresden<br />
+          Germany
+        </p>
+      </section>
+
+      <section>
+        <h4>Kontakt</h4>
+        <p>
+          tel.: - (wird noch hinzugefuegt)<br />
+          email: - (wird noch hinzugefuegt)
+        </p>
+      </section>
+
+      <section>
+        <h4>Vertretung</h4>
+        <p>
+          Vorstand: Jessi Beck<br />
+          Vorstand: Joseph Walther<br />
+          st. Vorstand: Frida Volmer<br />
+          st. Vorstand: Simon Garbe<br />
+          Schatzmeister: Minh Duc Nguyen
+        </p>
+      </section>
+
+      <section>
+        <h4>Register</h4>
+        <p>
+          Registergericht: Dresden<br />
+          Vereinsregister: - (wird noch hinzugefuegt)
+        </p>
+      </section>
+    </footer>
+  </div>
+</template>
+
+<script>
+export default {
+  name: "pages-impress"
+}
+</script>
+
+<style scoped lang="scss">
+.impress {
+  padding: 50px 0px;
+  text-align: center;
+
+  footer {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+
+    section {
+      text-align: left;
+      padding: 0 20px;
+
+      @media (max-width: 1150px) {
+        text-align: center;
+      }
+
+      h4 {
+        font-weight: bold;
+      }
+      p {
+        width: 250px;
+      }
+    }
+  }
+}
+</style>

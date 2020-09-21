@@ -1,17 +1,18 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="@/assets/bg.jpg" class="bg" />
+  <div class="app">
+    <Home />
+    <Impress />
   </div>
 </template>
 
 <script>
-// import axios from "axios"
-
-import {} from "vue"
+// pages
+import Home from "@/pages/Home"
+import Impress from "@/pages/Impress"
 
 export default {
-  name: "Home",
-  components: {}
+  name: "app",
+  components: { Home, Impress }
   // async setup() {
   // const getNotionData = async () => {
   //   const { data } = await axios.post(
@@ -47,11 +48,8 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.bg {
+.app {
   width: 100vw;
   height: 100vh;
-
-  object-fit: cover;
-  object-position: 50% 80%;
 }
 </style>

@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="@/assets/bg.jpg" class="bg" />
+    <img alt="Vue logo" src="@/assets/images/bg-cutted.png" class="bg" />
   </div>
 </template>
 
@@ -14,7 +14,7 @@ export default {
 .home {
   .bg {
     width: 100vw;
-    height: 100vh;
+    height: auto;
 
     object-fit: cover;
     object-position: 50% 80%;

@@ -6,7 +6,7 @@
       <section>
         <h4>Anschrift</h4>
         <p>
-          bfgm e.v.<br />
+          BfgM e.v.<br />
           Jordan Strasse 9<br />
           01099 Dresden<br />
           Germany
@@ -16,19 +16,19 @@
       <section>
         <h4>Kontakt</h4>
         <p>
-          tel.: - (wird noch hinzugefuegt)<br />
+          tel.: ‭+49 170 9515279‬<br />
           email: - (wird noch hinzugefuegt)
         </p>
       </section>
 
       <section>
-        <h4>Vertretung</h4>
+        <h4>gesetzliche Vertretung</h4>
         <p>
           Vorstand: Jessi Beck<br />
           Vorstand: Joseph Walther<br />
-          st. Vorstand: Frida Volmer<br />
-          st. Vorstand: Simon Garbe<br />
-          Schatzmeister: Minh Duc Nguyen
+          stellv. Vorstand: Frida Volmer<br />
+          stellv. Vorstand: Simon Garbe<br />
+          fin. Vorstand: Minh Duc Nguyen
         </p>
       </section>
 

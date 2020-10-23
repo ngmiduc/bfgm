@@ -3,10 +3,10 @@
     <Home />
 
     <Suspense>
-      <template #default>
+      <template #fallback>
         <Calendar />
       </template>
-      <template #fallback>
+      <template #default>
         <div class="loader">
           <div class="lds-roller">
             <div></div>
@@ -48,17 +48,18 @@ export default {
     align-items: center;
     justify-content: center;
     margin: 40px 0;
+    height: 200px;
   }
 
   .lds-roller {
     display: inline-block;
     position: relative;
-    width: 20px;
-    height: 20px;
+    width: 80px;
+    height: 80px;
   }
   .lds-roller div {
     animation: lds-roller 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
-    transform-origin: 40px 40px;
+    transform-origin: 30px 30px;
   }
   .lds-roller div:after {
     content: " ";

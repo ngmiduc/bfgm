@@ -64,7 +64,7 @@ export default {
         .filter(event => {
           let now = new Date()
           now.setDate(now.getDate() - 14)
-          return new Date(event.date.start) > now && !event.anfrage
+          return new Date(event.date.start) > now
         })
         .map(event => ({
           ...event,
@@ -77,7 +77,6 @@ export default {
               : "https://www.notion.so" + event.cover
             : null
         }))
-        .filter(event => event.is_public)
     }
   }
 }
@@ -97,25 +96,25 @@ export default {
     list-style: none;
 
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
 
     li {
       overflow: hidden;
 
       margin: 16px;
-      background-color: rgb(222, 217, 176);
-      border-radius: 4px;
-      box-shadow: 0 3px 15px 5px rgba(22, 66, 102, 0.1);
+      // background-color: rgb(222, 217, 176);
+      border-radius: 8px;
+      box-shadow: 0 3px 25px 1px rgba(34, 104, 161, 0.1);
       border: 1px solid rgba(156, 152, 122, 0.1);
       transition: all 300ms;
 
-      &:hover {
-        box-shadow: 0 3px 15px 5px rgba(22, 66, 102, 0.15);
-        border: 1px solid rgba(156, 152, 122, 0.15);
-      }
+      // &:hover {
+      //   box-shadow: 0 3px 15px 5px rgba(22, 66, 102, 0.15);
+      //   border: 1px solid rgba(156, 152, 122, 0.15);
+      // }
 
       img {
-        height: 150px;
+        height: 15rem;
         width: 100%;
 
         @media (max-width: 550px) {

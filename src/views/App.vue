@@ -3,10 +3,10 @@
     <Home />
 
     <Suspense>
-      <template #fallback>
+      <template #default>
         <Calendar />
       </template>
-      <template #default>
+      <template #fallback>
         <div class="loader">
           <div class="lds-roller">
             <div></div>

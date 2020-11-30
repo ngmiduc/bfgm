@@ -1,41 +1,17 @@
 <template>
   <div class="calendar">
-    <h2>Veranstaltungen</h2>
+    <h2>Aktuelle Maßnahmen</h2>
 
     <ul>
-      <li v-for="event in notion" :key="event.id">
-        <img v-if="event.cover" :src="event.cover" alt="cover-image" />
+      <li v-for="event in upcomingEvents" :key="event.id">
+        <CalEvent :event="event" :isActual="true" />
+      </li>
+    </ul>
 
-        <div class="content">
-          <span class="date">
-            {{
-              new Date(event.date.start).toLocaleDateString("de-DE", {
-                weekday: "long",
-                year: "numeric",
-                month: "long",
-                day: "numeric",
-                hour: "2-digit",
-                minute: "2-digit",
-                timeZone: "UTC"
-              })
-            }}
-          </span>
-          <div class="types">
-            <span
-              class="type"
-              v-for="ttypeName in event.type"
-              :key="ttypeName"
-              >{{ ttypeName }}</span
-            >
-          </div>
-
-          <h3>{{ event.icon }} {{ event.title }}</h3>
-          <h4>{{ event.sub_title }}</h4>
-
-          <p>
-            {{ event.description }}
-          </p>
-        </div>
+    <h2>Vergangene Maßnahmen</h2>
+    <ul>
+      <li v-for="event in passedEvents" :key="event.id">
+        <CalEvent :event="event" :isActual="false" />
       </li>
     </ul>
   </div>
@@ -44,9 +20,13 @@
 <script>
 import axios from "axios"
 
+import CalEvent from "@/components/Event.vue"
+
 export default {
   name: "calendar",
-
+  components: {
+    CalEvent
+  },
   async setup() {
     const getNotionData = async () => {
       const {
@@ -57,26 +37,38 @@ export default {
     }
 
     const notion = await getNotionData()
+    const calendarData = notion.map(event => ({
+      ...event,
+      description: event.description.split("\n").filter(i => i !== ""),
+      cover: event.cover
+        ? event.cover.indexOf("https://") !== -1
+          ? "https://www.notion.so/image/" +
+            event.cover.replace(/\//g, "%2F").replace(/:/g, "%3A") +
+            "?table=block&id=" +
+            event.id
+          : "https://www.notion.so" + event.cover
+        : null
+    }))
+
+    const newEvents = calendarData
+      .sort((a, b) => new Date(a.date.start) - new Date(b.date.start))
+      .filter(event => {
+        let now = new Date()
+        now.setDate(now.getDate() - 1)
+        return new Date(event.date.start) > now
+      })
+
+    const oldEvents = calendarData
+      .sort((a, b) => new Date(b.date.start) - new Date(a.date.start))
+      .filter(event => {
+        let now = new Date()
+        now.setDate(now.getDate() - 1)
+        return new Date(event.date.start) < now
+      })
 
     return {
-      notion: notion
-        .sort((a, b) => new Date(a.date.start) - new Date(b.date.start))
-        .filter(event => {
-          let now = new Date()
-          now.setDate(now.getDate() - 14)
-          return new Date(event.date.start) > now
-        })
-        .map(event => ({
-          ...event,
-          cover: event.cover
-            ? event.cover.indexOf("https://") !== -1
-              ? "https://www.notion.so/image/" +
-                event.cover.replace(/\//g, "%2F").replace(/:/g, "%3A") +
-                "?table=block&id=" +
-                event.id
-              : "https://www.notion.so" + event.cover
-            : null
-        }))
+      upcomingEvents: newEvents,
+      passedEvents: oldEvents
     }
   }
 }
@@ -95,65 +87,21 @@ export default {
     padding: 24px;
     list-style: none;
 
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
+    display: flex;
+    flex-wrap: wrap;
 
     li {
-      overflow: hidden;
-
+      width: 350px;
       margin: 16px;
-      // background-color: rgb(222, 217, 176);
-      border-radius: 8px;
-      box-shadow: 0 3px 25px 1px rgba(34, 104, 161, 0.1);
-      border: 1px solid rgba(156, 152, 122, 0.1);
-      transition: all 300ms;
 
-      // &:hover {
-      //   box-shadow: 0 3px 15px 5px rgba(22, 66, 102, 0.15);
-      //   border: 1px solid rgba(156, 152, 122, 0.15);
-      // }
-
-      img {
-        height: 15rem;
-        width: 100%;
-
-        @media (max-width: 550px) {
-          height: 250px;
-        }
-
-        object-fit: cover;
-        object-position: center;
+      @media (max-width: 1050px) {
+        width: 40%;
+        flex-grow: 1;
       }
 
-      .content {
-        padding: 8px;
-
-        h3 {
-          line-height: 17px;
-        }
-        h4 {
-          line-height: 13px;
-          font-weight: normal;
-          font-style: italic;
-        }
-
-        .date {
-        }
-
-        .types {
-          .type {
-            font-size: 12px;
-            background-color: rgb(85, 115, 108);
-            color: white;
-            margin-right: 8px;
-            border-radius: 8px;
-            padding: 4px 8px;
-          }
-        }
-
-        p {
-          line-height: 13px;
-        }
+      @media (max-width: 550px) {
+        width: 100%;
+        flex-grow: 1;
       }
     }
   }

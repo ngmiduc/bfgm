@@ -5,7 +5,9 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "deploy": "firebase deploy --only hosting",
+    "release": "npm run build && npm run deploy"
   },
   "dependencies": {
     "axios": "^0.20.0",

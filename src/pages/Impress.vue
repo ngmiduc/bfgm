@@ -1,12 +1,12 @@
 <template>
   <div class="impress">
-    <h1>Buero fuer gute Massnahmen</h1>
+    <h1>Büro für gute Maßnahmen</h1>
 
     <footer>
       <section>
         <h4>Anschrift</h4>
         <p>
-          BfgM e.v.<br />
+          Büro für gute Maßnahmen e.V.<br />
           Jordan Strasse 9<br />
           01099 Dresden<br />
           Germany
@@ -16,8 +16,9 @@
       <section>
         <h4>Kontakt</h4>
         <p>
+          Minh Duc Nguyen‬<br />
           tel.: ‭+49 170 9515279‬<br />
-          email: - (wird noch hinzugefuegt)
+          email: ngmiducdd@yahoo.de
         </p>
       </section>
 
@@ -36,7 +37,8 @@
         <h4>Register</h4>
         <p>
           Registergericht: Dresden<br />
-          Vereinsregister: - (wird noch hinzugefuegt)
+          Vereinsregister: VR 11706<br />
+          Steuernummer: 202/140/20565
         </p>
       </section>
     </footer>

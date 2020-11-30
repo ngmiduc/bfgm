@@ -17,7 +17,7 @@ export default {
     height: auto;
 
     object-fit: cover;
-    object-position: 50% 80%;
+    object-position: 50% 50%;
   }
 }
 </style>

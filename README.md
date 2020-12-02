@@ -14,6 +14,8 @@
 
 1. Installing Firebase CLI : `npm i -g firebase-tools`
 2. Build project : `npm run build`
+3. Login into firebase : `firebase login`
+4. Deploy to hosting : `firebase deploy --only hosting`
 
 ## server setup
 

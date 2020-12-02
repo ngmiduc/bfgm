@@ -2,7 +2,8 @@
 
 ## website / application Project setup
 
-1. Install NodeJs (best with installing NVM first and then installing a nodeJs version)
+1. Install NodeJs (best with installing NVM (https://github.com/nvm-sh/nvm) first and then installing a nodeJs version)
+2. Cd into the project 
 3. Installing Project Dependencies : `npm i`
 
 

@@ -1,17 +1,19 @@
-# bfgm 
+# buero fuer gute massnahmen 
 
-## website / application Project setup
+![alt text](https://github.com/ngmiduc/bfgm/blob/master/doc/home.png)
+
+## website / application project setup
 
 1. Install NodeJs (best with installing NVM (https://github.com/nvm-sh/nvm) first and then installing a nodeJs version)
 2. Cd into the project 
 3. Installing Project Dependencies : `npm i`
 
 
-### Compiles and hot-reloads for development
+### run locally in development
 
 `npm run serve`
 
-### Compiles and minifies for production
+### build and deploy or production
 
 1. Installing Firebase CLI : `npm i -g firebase-tools`
 2. Build project : `npm run build`
@@ -46,7 +48,7 @@ $ flask run
 
 
 
-### Deploy to production
+### deploy to production
 
 1. Commmit all changes
 ```

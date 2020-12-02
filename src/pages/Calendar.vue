@@ -50,21 +50,25 @@ export default {
         : null
     }))
 
-    const newEvents = calendarData
-      .sort((a, b) => new Date(a.date.start) - new Date(b.date.start))
-      .filter(event => {
-        let now = new Date()
-        now.setDate(now.getDate() - 1)
-        return new Date(event.date.start) > now
-      })
+    console.log(calendarData)
 
-    const oldEvents = calendarData
-      .sort((a, b) => new Date(b.date.start) - new Date(a.date.start))
-      .filter(event => {
-        let now = new Date()
-        now.setDate(now.getDate() - 1)
-        return new Date(event.date.start) < now
-      })
+    const sortFn = (direction = "asc") => (a, b) => {
+      const eventA = new Date(a.date.end || a.date.start)
+      const eventB = new Date(b.date.end || b.date.start)
+      return direction === "asc" ? eventA - eventB : eventB - eventA
+    }
+
+    const newEvents = calendarData.sort(sortFn("asc")).filter(event => {
+      let now = new Date()
+      now.setDate(now.getDate() - 1)
+      return new Date(event.date.end) > now
+    })
+
+    const oldEvents = calendarData.sort(sortFn("desc")).filter(event => {
+      let now = new Date()
+      now.setDate(now.getDate() - 1)
+      return new Date(event.date.end) < now
+    })
 
     return {
       upcomingEvents: newEvents,

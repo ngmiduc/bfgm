@@ -16,6 +16,21 @@
           })
         }}
       </span>
+      <span class="date">
+        {{
+          event.date.end &&
+            " -  " +
+              new Date(event.date.end).toLocaleDateString("de-DE", {
+                weekday: "long",
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+                hour: "2-digit",
+                minute: "2-digit",
+                timeZone: "UTC"
+              })
+        }}
+      </span>
       <div class="types">
         <span class="type" v-for="ttypeName in event.type" :key="ttypeName">{{
           ttypeName

@@ -1,17 +1,10 @@
 <template>
-  <div class="calendar">
-    <h2>Aktuelle Maßnahmen</h2>
+  <div class="open-calls">
+    <h2>Aktuelle Ausschreibungen</h2>
 
     <ul>
       <li v-for="event in upcomingEvents" :key="event.id">
-        <CalEvent :event="event" :isActual="true" />
-      </li>
-    </ul>
-
-    <h2>Vergangene Maßnahmen</h2>
-    <ul>
-      <li v-for="event in passedEvents" :key="event.id">
-        <CalEvent :event="event" :isActual="false" />
+        <CalOpen :event="event" :isActual="true" />
       </li>
     </ul>
   </div>
@@ -20,12 +13,12 @@
 <script>
 import axios from "axios"
 
-import CalEvent from "@/components/Event.vue"
+import CalOpen from "@/components/OpenCall.vue"
 
 export default {
-  name: "calendar",
+  name: "open-calls",
   components: {
-    CalEvent
+    CalOpen
   },
   async setup() {
     const getNotionData = async () => {
@@ -33,8 +26,8 @@ export default {
         data: { result }
       } = await axios.get(
         process.env.NODE_ENV === "development"
-          ? "http://127.0.0.1:5000/bfgm-calendar"
-          : "https://bfgm.herokuapp.com/bfgm-calendar"
+          ? "http://127.0.0.1:5000/bfgm-open-calls"
+          : "https://bfgm.herokuapp.com/bfgm-open-calls"
       )
 
       return result
@@ -60,28 +53,17 @@ export default {
       return direction === "asc" ? eventA - eventB : eventB - eventA
     }
 
-    const newEvents = calendarData.sort(sortFn("asc")).filter(event => {
-      let now = new Date()
-      now.setDate(now.getDate() - 1)
-      return new Date(event.date.end) > now
-    })
-
-    const oldEvents = calendarData.sort(sortFn("desc")).filter(event => {
-      let now = new Date()
-      now.setDate(now.getDate() - 1)
-      return new Date(event.date.end) < now
-    })
+    const newEvents = calendarData.sort(sortFn("asc"))
 
     return {
-      upcomingEvents: newEvents,
-      passedEvents: oldEvents
+      upcomingEvents: newEvents
     }
   }
 }
 </script>
 
 <style scoped lang="scss">
-.calendar {
+.open-calls {
   width: 100vw;
 
   h2 {

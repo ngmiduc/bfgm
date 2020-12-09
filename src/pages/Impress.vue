@@ -18,14 +18,14 @@
         <p>
           Minh Duc Nguyen‬<br />
           tel.: ‭+49 170 9515279‬<br />
-          email: ngmiducdd@yahoo.de
+          email: bfgn.minh@gmail.com
         </p>
       </section>
 
       <section>
         <h4>gesetzliche Vertretung</h4>
         <p>
-          Vorstand: Jessi Beck<br />
+          Vorstand: Jessica Beck<br />
           Vorstand: Joseph Walther<br />
           stellv. Vorstand: Frida Volmer<br />
           stellv. Vorstand: Simon Garbe<br />

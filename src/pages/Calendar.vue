@@ -1,6 +1,6 @@
 <template>
   <div class="calendar">
-    <h2>Aktuelle Maßnahmen</h2>
+    <h2 v-if="upcomingEvents.length !== 0">Aktuelle Maßnahmen</h2>
 
     <ul>
       <li v-for="event in upcomingEvents" :key="event.id">

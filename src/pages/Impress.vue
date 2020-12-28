@@ -16,20 +16,41 @@
       <section>
         <h4>Kontakt</h4>
         <p>
-          Minh Duc Nguyen‬<br />
-          tel.: ‭+49 170 9515279‬<br />
-          email: bfgn.minh@gmail.com
+          Post<br />
+          email: hi@bfgm.eu
+        </p>
+        <p>
+          Vorstand<br />
+          email: vorstand@bfgm.eu
         </p>
       </section>
 
       <section>
         <h4>gesetzliche Vertretung</h4>
         <p>
-          Vorstand: Jessica Beck<br />
-          Vorstand: Joseph Walther<br />
-          stellv. Vorstand: Frida Volmer<br />
-          stellv. Vorstand: Simon Garbe<br />
-          fin. Vorstand: Minh Duc Nguyen
+          1. Vorstand<br />
+          Jessica Beck<br />
+          email: jessi@bfgm.eu
+        </p>
+        <p>
+          2. Vorstand<br />
+          Joseph Walther<br />
+          email: joseph@bfgm.eu
+        </p>
+        <p>
+          1. stellv. Vorstand<br />
+          Frida Volmer<br />
+          email: frida@bfgm.eu
+        </p>
+        <p>
+          2. stellv. Vorstand<br />
+          Simon Garbe<br />
+          email: simon@bfgm.eu
+        </p>
+        <p>
+          Kassenwart/Vorstand<br />
+          Minh Duc Nguyen<br />
+          email: minh@bfgm.eu
         </p>
       </section>
 

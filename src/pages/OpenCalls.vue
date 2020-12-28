@@ -1,6 +1,6 @@
 <template>
   <div class="open-calls">
-    <h2>Aktuelle Ausschreibungen</h2>
+    <h2 v-if="upcomingEvents.length !== 0">Aktuelle Ausschreibungen</h2>
 
     <ul>
       <li v-for="event in upcomingEvents" :key="event.id">

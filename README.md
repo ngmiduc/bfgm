@@ -1,26 +1,18 @@
-# buero fuer gute massnahmen 
+# BFGM E.V. DRESDEN NEUSTADT
 
 ![alt text](https://github.com/ngmiduc/bfgm/blob/master/doc/home.png)
 
-## website / application project setup
+## Website / application project setup
 
 1. Install NodeJs (best with installing NVM (https://github.com/nvm-sh/nvm) first and then installing a nodeJs version)
 2. Cd into the project 
 3. Installing Project Dependencies : `npm i`
 
-
-### run locally in development
+### Run locally in development
 
 `npm run serve`
 
-### build and deploy or production
-
-1. Installing Firebase CLI : `npm i -g firebase-tools`
-2. Build project : `npm run build`
-3. Login into firebase : `firebase login`
-4. Deploy to hosting : `firebase deploy --only hosting`
-
-## server setup
+## Server / setup
 
 Server is deployed on Heroku Python
 
@@ -28,32 +20,23 @@ Server is deployed on Heroku Python
 
 0. Install `python` with `pip`, best with `pyenv`
 
-1. Installing Heroku and Heorku CLI https://devcenter.heroku.com/articles/heroku-command-line
-2. Login to Heroku : `heroku login`
-3. Clone Heroku Git repo : `heroku git:clone -a bfgm`
-4. cd into directoy : `cd bfgm`
+4. cd into directoy : `cd server`
 
-5. Run virtual env : `source env/bin/activate`
+5. Run virtual env : `. .venv/bin/activate`
 6. Install dep : `pip install -r requirements.txt `
-7. (optional) for freezing requirements.txt : `pip freeze > requirements.txt`
-
+7. Export flask-env for development debugging
 
 ```
 $ export FLASK_ENV=development
 ```
+8. Start server
 
 ```
-$ flask run
+$ flask run or via python .venv/bin/flask run
 ```
 
 
 
-### deploy to production
+### Deploy to production
 
-1. Commmit all changes
-```
-$ git add .
-$ git commit -am "make it better"
-$ git push heroku master
-```
-2. Push to master heroku `git push heroku master`
+Push to master will auto deploy all changes to production level!

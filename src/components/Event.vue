@@ -89,6 +89,7 @@ export default {
 
   .content {
     padding: 8px;
+    max-height: 500px;
 
     h3 {
       line-height: 17px;

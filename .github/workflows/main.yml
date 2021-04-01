@@ -46,6 +46,8 @@ jobs:
         run: git remote add heroku-server https://heroku:${{ secrets.HEROKU_API_KEY }}@git.heroku.com/bfgm.git
       - name: Add env to git
         run: |
+          git config --global user.email "hi@bfgm.eu"
+          git config --global user.name "BFGM CI SERVER"
           git add .
           git commit -am "add env var"
       - name: Deploy backend to Heroku

@@ -3,9 +3,12 @@ import os
 from flask import Flask, request, jsonify
 from notion.client import NotionClient
 from flask_cors import CORS
-from os import environ
+from dotenv import load_dotenv
 
-TOKEN = environ.get('NOTION_ACCESS_TOKEN')
+load_dotenv()
+load_dotenv(dotenv_path=".env.local")
+
+TOKEN = os.getenv('NOTION_ACCESS_TOKEN')
 
 DATABASE = 'https://www.notion.so/bfgm/54a05f4c38b645a893af5636e6fce91a?v=3c357ace0e5b4936b31aa8bdcbf2791c'
 OPENCALLS = 'https://www.notion.so/bfgm/cb75c467746e4956a08d96253cfaa79f?v=7284d5aa49d347acbb9f769b11c9ff77'
@@ -19,12 +22,11 @@ CORS(app, resources={"/*": {
 
 @app.route('/', methods=['GET'])
 def root():
-    return "Welcome to the server of BFGM.E.V!"
+    return "Welcome to the server of BFGM.E.V!" + TOKEN
 
 
 @app.route('/bfgm-calendar', methods=['GET'])
 def api_calendar():
-    print("API v1.1")
 
     client = NotionClient(token_v2=TOKEN)
 
@@ -58,7 +60,6 @@ def api_calendar():
 
 @app.route('/bfgm-open-calls', methods=['GET'], endpoint='bfgm-open-calls')
 def api_calendar():
-    print("API v1.1")
 
     client = NotionClient(token_v2=TOKEN)
 

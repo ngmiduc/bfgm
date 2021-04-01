@@ -1,8 +1,10 @@
-name: Firebase Deploy
+name: Deploy Production
+
 on:
   push:
     branches:
       - master
+
 jobs:
   deploy-app:
     name: Firebase-App
@@ -20,6 +22,7 @@ jobs:
           args: deploy --only hosting
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+
   deploy-server:
     name: Heroku-Server
     runs-on: ubuntu-latest

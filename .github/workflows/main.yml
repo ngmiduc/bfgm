@@ -37,6 +37,7 @@ jobs:
           cat requirements.txt
       - name: Create env file
         run: |
+          cd server
           touch .env
           echo NOTION_ACCESS_TOKEN=${{ secrets.NOTION_ACCESS_TOKEN }} >> .env
           cat .env

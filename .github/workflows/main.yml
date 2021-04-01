@@ -35,7 +35,14 @@ jobs:
         run: |
           cd server
           cat requirements.txt
+           - name: Make envfile
+      - name: Create env file
+        uses: SpicyPizza/create-envfile@v1
+        with:
+          envkey_NOTION_ACCESS_TOKEN: ${{ secrets.NOTION_ACCESS_TOKEN }}
+          directory: server
+          file_name: .env
       - name: Add backend remote origin
-        run: git remote add heroku-server https://heroku:${{ secrets.HEROKU_API_TOKEN }}@git.heroku.com/bfgm.git
+        run: git remote add heroku-server https://heroku:${{ secrets.HEROKU_API_KEY }}@git.heroku.com/bfgm.git
       - name: Deploy backend to Heroku
         run: git push heroku-server `git subtree split --prefix server master`:refs/heads/master --force

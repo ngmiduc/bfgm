@@ -35,7 +35,6 @@ jobs:
         run: |
           cd server
           cat requirements.txt
-           - name: Make envfile
       - name: Create env file
         uses: SpicyPizza/create-envfile@v1
         with:

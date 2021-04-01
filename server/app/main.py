@@ -3,11 +3,9 @@ import os
 from flask import Flask, request, jsonify
 from notion.client import NotionClient
 from flask_cors import CORS
-from dotenv import load_dotenv
+from os import environ
 
-load_dotenv()
-
-TOKEN = os.getenv('NOTION_ACCESS_TOKEN')
+TOKEN = environ.get('NOTION_ACCESS_TOKEN')
 
 DATABASE = 'https://www.notion.so/bfgm/54a05f4c38b645a893af5636e6fce91a?v=3c357ace0e5b4936b31aa8bdcbf2791c'
 OPENCALLS = 'https://www.notion.so/bfgm/cb75c467746e4956a08d96253cfaa79f?v=7284d5aa49d347acbb9f769b11c9ff77'

@@ -16,42 +16,17 @@
       <section>
         <h4>Kontakt</h4>
         <p>
-          Post<br />
-          email: hi@bfgm.eu
-        </p>
-        <p>
-          Vorstand<br />
-          email: vorstand@bfgm.eu
+          hi@bfgm.eu
         </p>
       </section>
 
       <section>
         <h4>gesetzliche Vertretung</h4>
-        <p>
-          1. Vorstand<br />
-          Jessica Beck<br />
-          email: jessi@bfgm.eu
-        </p>
-        <p>
-          2. Vorstand<br />
-          Joseph Walther<br />
-          email: joseph@bfgm.eu
-        </p>
-        <p>
-          1. stellv. Vorstand<br />
-          Frida Volmer<br />
-          email: frida@bfgm.eu
-        </p>
-        <p>
-          2. stellv. Vorstand<br />
-          Simon Garbe<br />
-          email: simon@bfgm.eu
-        </p>
-        <p>
-          Kassenwart/Vorstand<br />
-          Minh Duc Nguyen<br />
-          email: minh@bfgm.eu
-        </p>
+        <p>Jessica Beck<br /></p>
+        <p>Joseph Walther<br /></p>
+        <p>Frida Volmer<br /></p>
+        <p>Simon Garbe<br /></p>
+        <p>Minh Duc Nguyen<br /></p>
       </section>
 
       <section>
@@ -60,6 +35,18 @@
           Registergericht: Dresden<br />
           Vereinsregister: VR 11706<br />
           Steuernummer: 202/140/20565
+        </p>
+      </section>
+      <section>
+        <h4>Support</h4>
+        <p>
+          <span class="support-item">
+            <img
+              width="30"
+              src="@/assets/notion-logo/notion-logo-no-background.png"
+              alt="logo"
+            />
+          </span>
         </p>
       </section>
     </footer>
@@ -76,6 +63,19 @@ export default {
 .impress {
   padding: 50px 0px;
   text-align: center;
+
+  .support-item {
+    display: flex;
+    align-items: center;
+
+    @media (max-width: 1150px) {
+      justify-content: center;
+    }
+
+    img {
+      margin-right: 4px;
+    }
+  }
 
   footer {
     display: flex;

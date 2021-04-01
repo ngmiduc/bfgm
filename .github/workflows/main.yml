@@ -35,7 +35,7 @@ jobs:
         run: |
           cd server
           cat requirements.txt
-      - name: Create env file
+      - name: Create env file for server
         run: |
           cd server
           touch .env

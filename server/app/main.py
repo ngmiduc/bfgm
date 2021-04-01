@@ -22,7 +22,7 @@ CORS(app, resources={"/*": {
 
 @app.route('/', methods=['GET'])
 def root():
-    return "Welcome to the server of BFGM.E.V!" + TOKEN
+    return "Welcome to the server of BFGM.E.V!"
 
 
 @app.route('/bfgm-calendar', methods=['GET'])

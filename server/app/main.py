@@ -26,6 +26,7 @@ def root():
 
 @app.route('/bfgm-calendar', methods=['GET'])
 def api_calendar():
+    print("API v1.1")
 
     client = NotionClient(token_v2=TOKEN)
 
@@ -59,6 +60,7 @@ def api_calendar():
 
 @app.route('/bfgm-open-calls', methods=['GET'], endpoint='bfgm-open-calls')
 def api_calendar():
+    print("API v1.1")
 
     client = NotionClient(token_v2=TOKEN)
 

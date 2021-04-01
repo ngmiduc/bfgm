@@ -14,11 +14,14 @@ OPENCALLS = 'https://www.notion.so/bfgm/cb75c467746e4956a08d96253cfaa79f?v=7284d
 
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, resources={"/*": {
+  "origins": ["https://www.bfgm.eu", "https://bfgm.eu"]
+}})
+
 
 @app.route('/', methods=['GET'])
 def root():
-    return "bfgm-e-v"
+    return "Welcome to the server of BFGM.E.V!"
 
 
 @app.route('/bfgm-calendar', methods=['GET'])

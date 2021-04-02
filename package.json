@@ -1,6 +1,6 @@
 {
   "name": "bfgm",
-  "version": "1.2.70",
+  "version": "1.2.71",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",

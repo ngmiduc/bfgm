@@ -14,7 +14,7 @@ DATABASE = 'https://www.notion.so/bfgm/54a05f4c38b645a893af5636e6fce91a?v=3c357a
 OPENCALLS = 'https://www.notion.so/bfgm/cb75c467746e4956a08d96253cfaa79f?v=7284d5aa49d347acbb9f769b11c9ff77'
 
 
-CORS_ORIGIN = ["https://www.bfgm.eu", "https://bfgm.eu"] if ( 'FLASK_ENV' in os.environ.keys() and "development" == os.environ['FLASK_ENV']) else ["http://localhost:8080"]
+CORS_ORIGIN = ["http://localhost:8080"] if ( 'FLASK_ENV' in os.environ.keys() and "development" == os.environ['FLASK_ENV']) else ["https://www.bfgm.eu", "https://bfgm.eu"]
 print("CORS:")
 print(CORS_ORIGIN)
 

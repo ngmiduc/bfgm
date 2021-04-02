@@ -82,20 +82,12 @@
 </template>
 
 <script>
-import {
-  SettingOutlined,
-  EditOutlined,
-  EllipsisOutlined,
-  SendOutlined
-} from "@ant-design/icons-vue"
+import { SendOutlined } from "@ant-design/icons-vue"
 
 export default {
   name: "component-event",
   props: ["event", "isActual"],
   components: {
-    SettingOutlined,
-    EditOutlined,
-    EllipsisOutlined,
     SendOutlined
   }
 }

@@ -1,71 +1,112 @@
 <template>
   <div class="event-content" :class="{ passed: isActual === false }">
-    <img v-if="event.cover" :src="event.cover" alt="cover-image" />
+    <a-card hoverable>
+      <template #cover>
+        <a-image v-if="event.cover" width="100%" :src="event.cover" />
+      </template>
 
-    <div class="content">
-      <span class="date">
-        {{
-          new Date(event.date.start).toLocaleDateString("de-DE", {
-            weekday: "long",
-            year: "numeric",
-            month: "long",
-            day: "numeric",
-            hour: "2-digit",
-            minute: "2-digit",
-            timeZone: "UTC"
-          })
-        }}
-      </span>
-      <span class="date">
-        {{
-          event.date.end &&
-            " -  " +
-              new Date(event.date.end).toLocaleDateString("de-DE", {
-                weekday: "long",
+      <template class="ant-card-actions" #actions>
+        <a
+          key="link"
+          :href="
+            event.link.includes('http') ? event.link : `https://${event.link}`
+          "
+          target="_blank"
+          rel="noreferrer"
+        >
+          <send-outlined />
+        </a>
+
+        .
+      </template>
+
+      <a-card-meta
+        :title="(event.icon || '') + ' ' + event.title"
+        :description="event.sub_title"
+      >
+        <template #avatar></template>
+      </a-card-meta>
+
+      <div class="content">
+        <a-space>
+          <a-typography-text>
+            {{
+              new Date(event.date.start).toLocaleDateString("de-DE", {
+                weekday: "short",
                 year: "numeric",
-                month: "long",
+                month: "short",
                 day: "numeric",
                 hour: "2-digit",
                 minute: "2-digit",
                 timeZone: "UTC"
               })
-        }}
-      </span>
-      <div class="types">
-        <span class="type" v-for="ttypeName in event.type" :key="ttypeName">{{
-          ttypeName
-        }}</span>
+            }}
+          </a-typography-text>
+          <a-typography-text>
+            {{
+              event.date.end &&
+                " -  " +
+                  new Date(event.date.end).toLocaleDateString("de-DE", {
+                    weekday: "short",
+                    year: "numeric",
+                    month: "short",
+                    day: "numeric",
+                    hour: "2-digit",
+                    minute: "2-digit",
+                    timeZone: "UTC"
+                  })
+            }}
+          </a-typography-text>
+        </a-space>
+
+        <a-space>
+          <a-typography-text
+            code
+            v-for="ttypeName in event.type"
+            :key="ttypeName"
+          >
+            {{ ttypeName }}
+          </a-typography-text>
+        </a-space>
       </div>
 
-      <h3>{{ event.icon }} {{ event.title }}</h3>
-      <h4>{{ event.sub_title }}</h4>
-
-      <p v-for="(paragraph, index) in event.description" :key="index">
-        {{ paragraph }}
-      </p>
-    </div>
+      <div class="content">
+        <a-typography-paragraph
+          :ellipsis="{ rows: 6, expandable: true, symbol: 'mehr' }"
+          :content="event.description.join('\n')"
+        >
+        </a-typography-paragraph>
+      </div>
+    </a-card>
   </div>
 </template>
 
 <script>
+import {
+  SettingOutlined,
+  EditOutlined,
+  EllipsisOutlined,
+  SendOutlined
+} from "@ant-design/icons-vue"
+
 export default {
   name: "component-event",
-  props: ["event", "isActual"]
+  props: ["event", "isActual"],
+  components: {
+    SettingOutlined,
+    EditOutlined,
+    EllipsisOutlined,
+    SendOutlined
+  }
 }
 </script>
 
 <style scoped lang="scss">
 .event-content {
-  border-radius: 8px;
-  border: 1px dashed rgba(126, 126, 126, 0.5);
-  overflow: hidden;
   transition: all 300ms;
 
-  // background-color: rgba(83, 117, 154, 0.3);
-  // box-shadow: 0 5px 5px 10px rgba(34, 14, 161, 0.1);
-
   &.passed {
-    opacity: 0.6;
+    opacity: 0.8;
     background-color: transparent;
     box-shadow: none;
 
@@ -74,49 +115,11 @@ export default {
     }
   }
 
-  img {
-    height: 20rem;
-    width: 100%;
-    border-bottom: 1px dashed rgba(126, 126, 126, 0.5);
-
-    @media (max-width: 550px) {
-      height: 350px;
-    }
-
-    object-fit: cover;
-    object-position: center;
-  }
-
   .content {
-    padding: 8px;
-    max-height: 500px;
+    margin-top: 16px;
 
-    h3 {
-      line-height: 17px;
-    }
-    h4 {
-      line-height: 13px;
-      font-weight: normal;
-      font-style: italic;
-    }
-
-    .date {
-    }
-
-    .types {
-      .type {
-        font-size: 12px;
-        background-color: rgba(129, 175, 164, 1);
-        color: white;
-        margin-right: 8px;
-        border-radius: 2px;
-        padding: 2px 4px;
-      }
-    }
-
-    p {
-      line-height: 18px;
-    }
+    white-space: break-spaces;
+    text-align: left;
   }
 }
 </style>

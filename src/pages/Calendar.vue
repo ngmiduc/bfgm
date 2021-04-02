@@ -1,19 +1,42 @@
 <template>
   <div class="calendar">
-    <h2 v-if="upcomingEvents.length !== 0">Aktuelle Maßnahmen</h2>
+    <a-typography-title v-if="upcomingEvents.length !== 0" :level="2">
+      Aktuelle Maßnahmen
+    </a-typography-title>
 
-    <ul>
-      <li v-for="event in upcomingEvents" :key="event.id">
+    <a-row :gutter="[32, 32]" type="flex" justify="center">
+      <a-col
+        :xs="24"
+        :sm="12"
+        :md="12"
+        :lg="8"
+        :xl="6"
+        v-for="event in upcomingEvents"
+        :key="event.id"
+      >
         <CalEvent :event="event" :isActual="true" />
-      </li>
-    </ul>
+      </a-col>
+    </a-row>
 
-    <h2>Vergangene Maßnahmen</h2>
-    <ul>
-      <li v-for="event in passedEvents" :key="event.id">
+    <a-divider dashed style="height: 2px; background-color: transparent;" />
+
+    <a-typography-title :level="2">
+      Vergangene Maßnahmen
+    </a-typography-title>
+
+    <a-row :gutter="[32, 32]" type="flex" justify="center">
+      <a-col
+        :xs="24"
+        :sm="12"
+        :md="12"
+        :lg="8"
+        :xl="6"
+        v-for="event in passedEvents"
+        :key="event.id"
+      >
         <CalEvent :event="event" :isActual="false" />
-      </li>
-    </ul>
+      </a-col>
+    </a-row>
   </div>
 </template>
 
@@ -82,34 +105,7 @@ export default {
 
 <style scoped lang="scss">
 .calendar {
-  width: 100vw;
-
-  h2 {
-    text-align: center;
-  }
-
-  ul {
-    margin: 0;
-    padding: 24px;
-    list-style: none;
-
-    display: flex;
-    flex-wrap: wrap;
-
-    li {
-      width: 350px;
-      margin: 16px;
-
-      @media (max-width: 1050px) {
-        width: 40%;
-        flex-grow: 1;
-      }
-
-      @media (max-width: 550px) {
-        width: 100%;
-        flex-grow: 1;
-      }
-    }
-  }
+  text-align: center;
+  padding: 40px 0;
 }
 </style>

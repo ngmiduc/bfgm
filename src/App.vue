@@ -11,7 +11,7 @@ body {
 }
 
 body {
-  background-color: rgb(231, 227, 195);
+  background-color: rgb(231, 227, 195) !important;
 
   * {
     font-family: "Crimson Text", serif;

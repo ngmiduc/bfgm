@@ -1,45 +1,49 @@
 <template>
   <div class="impress">
-    <h1>Büro für gute Maßnahmen</h1>
+    <a-typography-title :level="2">Büro für gute Maßnahmen</a-typography-title>
 
-    <footer>
-      <section>
-        <h4>Anschrift</h4>
-        <p>
+    <a-row :gutter="32" type="flex" justify="center" align="top">
+      <a-col :xs="24" :sm="8" :md="6" :lg="4" :xl="4">
+        <a-typography-title :level="4">Anschrift</a-typography-title>
+        <a-typography-paragraph>
           Büro für gute Maßnahmen e.V.<br />
           Jordan Strasse 9<br />
           01099 Dresden<br />
           Germany
-        </p>
-      </section>
+        </a-typography-paragraph>
+      </a-col>
 
-      <section>
-        <h4>Kontakt</h4>
-        <p>
+      <a-col :xs="24" :sm="8" :md="6" :lg="4" :xl="4">
+        <a-typography-title :level="4">Kontakt</a-typography-title>
+        <a-typography-paragraph>
           hi@bfgm.eu
-        </p>
-      </section>
+        </a-typography-paragraph>
+      </a-col>
 
-      <section>
-        <h4>gesetzliche Vertretung</h4>
-        <p>Jessica Beck<br /></p>
-        <p>Joseph Walther<br /></p>
-        <p>Frida Volmer<br /></p>
-        <p>Simon Garbe<br /></p>
-        <p>Minh Duc Nguyen<br /></p>
-      </section>
+      <a-col :xs="24" :sm="8" :md="6" :lg="4" :xl="4">
+        <a-typography-title :level="4"
+          >gesetzliche Vertretung
+        </a-typography-title>
+        <a-typography-paragraph
+          >Jessica Beck<br />
+          Joseph Walther<br />
+          Frida Volmer<br />
+          Simon Garbe<br />
+          Minh Duc Nguyen<br
+        /></a-typography-paragraph>
+      </a-col>
 
-      <section>
-        <h4>Register</h4>
-        <p>
+      <a-col :xs="24" :sm="8" :md="6" :lg="4" :xl="4">
+        <a-typography-title :level="4">Register</a-typography-title>
+        <a-typography-paragraph>
           Registergericht: Dresden<br />
           Vereinsregister: VR 11706<br />
           Steuernummer: 202/140/20565
-        </p>
-      </section>
-      <section>
-        <h4>Support</h4>
-        <p>
+        </a-typography-paragraph>
+      </a-col>
+      <a-col :xs="24" :sm="8" :md="6" :lg="4" :xl="4">
+        <a-typography-title :level="4">Support</a-typography-title>
+        <a-typography-paragraph>
           <span class="support-item">
             <img
               width="30"
@@ -47,9 +51,9 @@
               alt="logo"
             />
           </span>
-        </p>
-      </section>
-    </footer>
+        </a-typography-paragraph>
+      </a-col>
+    </a-row>
   </div>
 </template>
 
@@ -61,42 +65,8 @@ export default {
 
 <style scoped lang="scss">
 .impress {
-  padding: 50px 0px;
   text-align: center;
-
-  .support-item {
-    display: flex;
-    align-items: center;
-
-    @media (max-width: 1150px) {
-      justify-content: center;
-    }
-
-    img {
-      margin-right: 4px;
-    }
-  }
-
-  footer {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-
-    section {
-      text-align: left;
-      padding: 0 20px;
-
-      @media (max-width: 1150px) {
-        text-align: center;
-      }
-
-      h4 {
-        font-weight: bold;
-      }
-      p {
-        width: 250px;
-      }
-    }
-  }
+  padding-bottom: 300px;
+  padding-top: 40px;
 }
 </style>

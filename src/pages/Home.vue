@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="@/assets/images/bg-cutted.png" class="bg" />
+    <a-image width="100%" src="/img/bg-cutted.png" />
   </div>
 </template>
 
@@ -12,12 +12,6 @@ export default {
 
 <style scoped lang="scss">
 .home {
-  .bg {
-    width: 100vw;
-    height: auto;
-
-    object-fit: cover;
-    object-position: 50% 50%;
-  }
+  padding: 16px;
 }
 </style>

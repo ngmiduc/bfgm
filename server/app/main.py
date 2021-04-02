@@ -14,10 +14,15 @@ DATABASE = 'https://www.notion.so/bfgm/54a05f4c38b645a893af5636e6fce91a?v=3c357a
 OPENCALLS = 'https://www.notion.so/bfgm/cb75c467746e4956a08d96253cfaa79f?v=7284d5aa49d347acbb9f769b11c9ff77'
 
 
+CORS_ORIGIN = ["https://www.bfgm.eu", "https://bfgm.eu"] if ( 'FLASK_ENV' in os.environ.keys() and "development" == os.environ['FLASK_ENV']) else ["http://localhost:8080"]
+print("CORS:")
+print(CORS_ORIGIN)
+
 app = Flask(__name__)
 CORS(app, resources={"/*": {
-  "origins": ["https://www.bfgm.eu", "https://bfgm.eu"]
+  "origins": CORS_ORIGIN
 }})
+
 
 
 @app.route('/', methods=['GET'])
@@ -45,6 +50,7 @@ def api_calendar():
             icon=c.get("format.page_icon"),
             cover=c.get("format.page_cover"),
             title=c.title,
+            link=getattr(c,"link"),
             sub_title=getattr(c,"webseite_untertitel"),
             description=getattr(c,"webseite_text"),
             date=dict(start=getattr(c,"Datum").start, end= getattr(c,"Datum").end),

@@ -1,4 +1,5 @@
 # BFGM E.V. DRESDEN NEUSTADT
+contact: hi@bfgm.eu
 
 ![alt text](https://github.com/ngmiduc/bfgm/blob/master/doc/home.png)
 

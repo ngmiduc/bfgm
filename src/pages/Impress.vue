@@ -25,10 +25,10 @@
           >gesetzliche Vertretung
         </a-typography-title>
         <a-typography-paragraph
-          >Jessica Beck<br />
+          >Isabell Regel<br />
           Joseph Walther<br />
-          Frida Volmer<br />
-          Simon Garbe<br />
+          Mareike Mittig<br />
+          Nicolas Regel<br />
           Minh Duc Nguyen<br
         /></a-typography-paragraph>
       </a-col>

@@ -1,17 +1,19 @@
 {
   "name": "bfgm",
-  "version": "1.2.71",
+  "version": "1.2.72",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
+    "emulator": "firebase emulators:start --only functions",
     "prepare": "husky install"
   },
   "dependencies": {
     "ant-design-vue": "^2.1.2",
     "axios": "^0.21.1",
     "core-js": "^3.6.5",
+    "firebase": "^8.8.1",
     "register-service-worker": "^1.7.1",
     "vue": "^3.0.0-0",
     "vue-router": "^4.0.0-0"

@@ -41,9 +41,11 @@
 </template>
 
 <script>
-import axios from "axios"
+// import axios from "axios"
 
 import CalEvent from "@/components/Event.vue"
+
+import { CloudFunctions } from "@/services/firebase.js"
 
 export default {
   name: "calendar",
@@ -52,15 +54,12 @@ export default {
   },
   async setup() {
     const getNotionData = async () => {
-      const {
-        data: { result }
-      } = await axios.get(
-        process.env.NODE_ENV === "development"
-          ? "http://127.0.0.1:5000/bfgm-calendar"
-          : "https://bfgm.herokuapp.com/bfgm-calendar"
-      )
+      const { data } = await CloudFunctions("getEvents")()
 
-      return result
+      const events = data.results
+      console.log(events)
+
+      return []
     }
 
     const notion = await getNotionData()

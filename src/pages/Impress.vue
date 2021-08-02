@@ -41,18 +41,6 @@
           Steuernummer: 202/140/20565
         </a-typography-paragraph>
       </a-col>
-      <a-col :xs="24" :sm="8" :md="6" :lg="4" :xl="4">
-        <a-typography-title :level="4">Support</a-typography-title>
-        <a-typography-paragraph>
-          <span class="support-item">
-            <img
-              width="30"
-              src="@/assets/notion-logo/notion-logo-no-background.png"
-              alt="logo"
-            />
-          </span>
-        </a-typography-paragraph>
-      </a-col>
     </a-row>
   </div>
 </template>

@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import axios from "axios"
+// import axios from "axios"
 
 import CalOpen from "@/components/OpenCall.vue"
 
@@ -32,15 +32,15 @@ export default {
   },
   async setup() {
     const getNotionData = async () => {
-      const {
-        data: { result }
-      } = await axios.get(
-        process.env.NODE_ENV === "development"
-          ? "http://127.0.0.1:5000/bfgm-open-calls"
-          : "https://bfgm.herokuapp.com/bfgm-open-calls"
-      )
+      // const {
+      //   data: { result }
+      // } = await axios.get(
+      //   process.env.NODE_ENV === "development"
+      //     ? "http://127.0.0.1:5000/bfgm-open-calls"
+      //     : "https://bfgm.herokuapp.com/bfgm-open-calls"
+      // )
 
-      return result
+      return []
     }
 
     const notion = await getNotionData()

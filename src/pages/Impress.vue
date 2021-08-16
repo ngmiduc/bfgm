@@ -25,9 +25,9 @@
           >gesetzliche Vertretung
         </a-typography-title>
         <a-typography-paragraph
-          >Isabell Regel<br />
+          >Louisa Regel<br />
           Joseph Walther<br />
-          Mareike Mittig<br />
+          Mareike Pittig<br />
           Nicolas Regel<br />
           Minh Duc Nguyen<br
         /></a-typography-paragraph>

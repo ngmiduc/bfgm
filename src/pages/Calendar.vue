@@ -9,7 +9,7 @@
         :xs="24"
         :sm="12"
         :md="12"
-        :lg="8"
+        :lg="6"
         :xl="6"
         v-for="event in upcomingEvents"
         :key="event.id"
@@ -24,13 +24,13 @@
       Vergangene Maßnahmen
     </a-typography-title>
 
-    <a-row :gutter="[32, 32]" type="flex" justify="center">
+    <a-row :gutter="[16, 16]" type="flex" justify="center">
       <a-col
         :xs="24"
         :sm="12"
         :md="12"
-        :lg="8"
-        :xl="6"
+        :lg="6"
+        :xl="4"
         v-for="event in passedEvents"
         :key="event.id"
       >
@@ -41,9 +41,11 @@
 </template>
 
 <script>
-import axios from "axios"
+// import axios from "axios"
 
 import CalEvent from "@/components/Event.vue"
+
+import { CloudFunctions } from "@/services/firebase.js"
 
 export default {
   name: "calendar",
@@ -52,30 +54,14 @@ export default {
   },
   async setup() {
     const getNotionData = async () => {
-      const {
-        data: { result }
-      } = await axios.get(
-        process.env.NODE_ENV === "development"
-          ? "http://127.0.0.1:5000/bfgm-calendar"
-          : "https://bfgm.herokuapp.com/bfgm-calendar"
-      )
+      const { data } = await CloudFunctions("getEvents")()
 
-      return result
+      return data
     }
 
-    const notion = await getNotionData()
-    const calendarData = notion.map(event => ({
-      ...event,
-      description: event.description.split("\n").filter(i => i !== ""),
-      cover: event.cover
-        ? event.cover.indexOf("https://") !== -1
-          ? "https://www.notion.so/image/" +
-            event.cover.replace(/\//g, "%2F").replace(/:/g, "%3A") +
-            "?table=block&id=" +
-            event.id
-          : "https://www.notion.so" + event.cover
-        : null
-    }))
+    const events = await getNotionData()
+
+    console.log("render events", events)
 
     const sortFn = (direction = "asc") => (a, b) => {
       const eventA = new Date(a.date.end || a.date.start)
@@ -83,13 +69,13 @@ export default {
       return direction === "asc" ? eventA - eventB : eventB - eventA
     }
 
-    const newEvents = calendarData.sort(sortFn("asc")).filter(event => {
+    const newEvents = events.sort(sortFn("asc")).filter(event => {
       let now = new Date()
       now.setDate(now.getDate() - 1)
       return new Date(event.date.end) > now
     })
 
-    const oldEvents = calendarData.sort(sortFn("desc")).filter(event => {
+    const oldEvents = events.sort(sortFn("desc")).filter(event => {
       let now = new Date()
       now.setDate(now.getDate() - 1)
       return new Date(event.date.end) < now

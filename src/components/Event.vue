@@ -5,21 +5,6 @@
         <a-image v-if="event.cover" width="100%" :src="event.cover" />
       </template>
 
-      <template class="ant-card-actions" #actions>
-        <a
-          key="link"
-          :href="
-            event.link.includes('http') ? event.link : `https://${event.link}`
-          "
-          target="_blank"
-          rel="noreferrer"
-        >
-          <send-outlined />
-        </a>
-
-        .
-      </template>
-
       <a-card-meta
         :title="(event.icon || '') + ' ' + event.title"
         :description="event.sub_title"
@@ -27,12 +12,25 @@
         <template #avatar></template>
       </a-card-meta>
 
-      <div class="content">
-        <a-space>
-          <a-typography-text>
-            {{
-              new Date(event.date.start).toLocaleDateString("de-DE", {
-                weekday: "short",
+      <div class="dates">
+        <a
+          v-if="event.link"
+          key="link"
+          :href="
+            event.link.includes('http') ? event.link : `https://${event.link}`
+          "
+          target="_blank"
+          rel="noreferrer"
+        >
+          <send-outlined /> {{ event.link.slice(0, 30) }}
+        </a>
+      </div>
+
+      <div class="dates">
+        <a-typography-text>
+          {{
+            new Date(event.date.start)
+              .toLocaleDateString("de-DE", {
                 year: "numeric",
                 month: "short",
                 day: "numeric",
@@ -40,14 +38,15 @@
                 minute: "2-digit",
                 timeZone: "UTC"
               })
-            }}
-          </a-typography-text>
-          <a-typography-text>
-            {{
-              event.date.end &&
-                " -  " +
-                  new Date(event.date.end).toLocaleDateString("de-DE", {
-                    weekday: "short",
+              .replace(", 00:00", "")
+          }}
+        </a-typography-text>
+        <a-typography-text>
+          {{
+            event.date.end &&
+              " -  " +
+                new Date(event.date.end)
+                  .toLocaleDateString("de-DE", {
                     year: "numeric",
                     month: "short",
                     day: "numeric",
@@ -55,25 +54,15 @@
                     minute: "2-digit",
                     timeZone: "UTC"
                   })
-            }}
-          </a-typography-text>
-        </a-space>
-
-        <a-space>
-          <a-typography-text
-            code
-            v-for="ttypeName in event.type"
-            :key="ttypeName"
-          >
-            {{ ttypeName }}
-          </a-typography-text>
-        </a-space>
+                  .replace(", 00:00", "")
+          }}
+        </a-typography-text>
       </div>
 
       <div class="content">
         <a-typography-paragraph
-          :ellipsis="{ rows: 6, expandable: true, symbol: 'mehr' }"
-          :content="event.description.join('\n')"
+          :ellipsis="{ rows: 4, expandable: true, symbol: 'mehr' }"
+          :content="event.description.join('')"
         >
         </a-typography-paragraph>
       </div>
@@ -97,6 +86,9 @@ export default {
 .event-content {
   transition: all 300ms;
 
+  overflow: hidden;
+  border-radius: 8px;
+
   &.passed {
     opacity: 0.8;
     background-color: transparent;
@@ -105,6 +97,10 @@ export default {
     &:hover {
       opacity: 1;
     }
+  }
+
+  .dates {
+    text-align: center;
   }
 
   .content {

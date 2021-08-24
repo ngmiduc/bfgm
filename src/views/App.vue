@@ -4,15 +4,6 @@
 
     <Suspense>
       <template #default>
-        <OpenCalls />
-      </template>
-      <template #fallback>
-        <Loader />
-      </template>
-    </Suspense>
-
-    <Suspense>
-      <template #default>
         <Calendar />
       </template>
       <template #fallback>
@@ -32,11 +23,10 @@ import Loader from "@/components/Loader"
 import Home from "@/pages/Home"
 import Impress from "@/pages/Impress"
 import Calendar from "@/pages/Calendar"
-import OpenCalls from "@/pages/OpenCalls"
 
 export default {
   name: "app",
-  components: { Home, Impress, Calendar, OpenCalls, Loader }
+  components: { Home, Impress, Calendar, Loader }
 }
 </script>
 

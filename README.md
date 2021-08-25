@@ -1,42 +1,35 @@
 # BFGM E.V. DRESDEN NEUSTADT
-contact: hi@bfgm.eu
 
-![alt text](https://github.com/ngmiduc/bfgm/blob/master/doc/home.png)
+Contact: hi@bfgm.eu <br>
+Website: www.bfgm.eu
 
-## Website / application project setup
+This website is hosted on Firebase (Google Cloud Plattform) and uses the following resources:
+- Cloud Functions (backend server)
+- Firebase Hosting (static hosting)
 
-1. Install NodeJs (best with installing NVM (https://github.com/nvm-sh/nvm) first and then installing a nodeJs version)
-2. Cd into the project 
-3. Installing Project Dependencies : `npm i`
+## Requirements
+
+1. Install `node` (best with installing nvm https://github.com/nvm-sh/nvm)
+2. Install `firebase-tools` globally in node with `npm i -g firebase-tools`
+3. Login into firebase CLI with `firebase login`
+
+## Setup
+
+4. `cd` into the project folder
+5. Installing dependencies with `npm i`
+6. `cd functions` into `functions` folder inside the project folder
+7. Download secrets from cloud functions with `firebase functions:config:get > .runtimeconfig.json` <br>
+This will download the secrets into your functions folder that will be used by the local server emulator
+
 
 ### Run locally in development
 
-`npm run serve`
+To run the project locally on your machine, you need two terminals opened. Run the following commands inside the project folder.
 
-## Server / setup
-
-Server is deployed on Heroku Python
-
-### run in development
-
-0. Install `python` with `pip`, best with `pyenv`
-
-4. cd into directoy : `cd server`
-
-5. Run virtual env : `. .venv/bin/activate`
-6. Install dep : `pip install -r requirements.txt `
-7. Export flask-env for development debugging
-
-```
-$ export FLASK_ENV=development
-```
-8. Start server
-
-```
-$ flask run or via python .venv/bin/flask run
-```
-
-
+- `npm run serve` <br>
+This starts the website under `localhost:8080`
+- `npm run emulator` <br>
+This starts a local emulator to server Cloud Functions Backend locally
 
 ### Deploy to production
 

@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <a-image width="100%" src="/img/bg-cutted.png" />
+    <a-image width="120px" :src="require('@/assets/logo512.png')" />
   </div>
 </template>
 

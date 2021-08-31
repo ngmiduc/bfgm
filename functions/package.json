@@ -19,9 +19,6 @@
     "firebase-functions": "^3.15.4"
   },
   "devDependencies": {
-    "eslint": "^7.32.0",
-    "eslint-config-airbnb-base": "^14.2.1",
-    "eslint-plugin-import": "^2.24.2",
     "firebase-functions-test": "^0.2.0"
   },
   "private": true

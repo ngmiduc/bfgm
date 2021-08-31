@@ -22,7 +22,13 @@
           target="_blank"
           rel="noreferrer"
         >
-          <send-outlined /> {{ event.link.slice(0, 30) }}
+          <send-outlined />
+          {{
+            event.link
+              .replace(`https://`, "")
+              .replace(`http://`, "")
+              .split("/")[0]
+          }}
         </a>
       </div>
 

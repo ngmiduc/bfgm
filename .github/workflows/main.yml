@@ -26,7 +26,7 @@ jobs:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
 
   deploy-cloud-functions:
-    name: Firebase-App
+    name: Firebase-Cloud-Functions
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repo

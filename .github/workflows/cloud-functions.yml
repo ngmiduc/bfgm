@@ -1,0 +1,30 @@
+name: Deploy Production
+
+on:
+  push:
+    paths:
+      - "functions/**"
+    branches:
+      - master
+
+jobs:
+  deploy-cloud-functions:
+    name: Firebase-Cloud-Functions
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v2.3.2
+      - name: Check packages
+        run: |
+          cd functions
+          cat package.json
+      - name: Install npm packages
+        run: |
+          cd functions
+          npm install
+      - name: Deploy to Firebase
+        uses: w9jds/firebase-action@master
+        with:
+          args: deploy --only functions
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}

@@ -6,26 +6,26 @@ const DB = "54a05f4c38b645a893af5636e6fce91a"
 
 const standardizeCalendar = async () => {
   const notion = new Client({
-    auth: functions.config().notion.key
+    auth: functions.config().notion.key,
   })
 
   const { results: databasePages } = await notion.databases.query({
-    database_id: DB
+    database_id: DB,
   })
   console.log("Query Notion Calendar Database")
   console.log(`Found total ${databasePages.length} entries in calendar!`)
 
   await Promise.all(
     databasePages
-      .filter(item => item.properties.status.select === null)
-      .map(async _page =>
+      .filter((item) => item.properties.status.select === null)
+      .map(async (_page) =>
         notion.pages.update({
           page_id: _page.id,
           properties: {
             status: {
-              select: { name: "intern" }
-            }
-          }
+              select: { name: "intern" },
+            },
+          },
         })
       )
   )
@@ -33,13 +33,13 @@ const standardizeCalendar = async () => {
 
   await Promise.all(
     databasePages
-      .filter(item => item.properties.Veranstalter.select === null)
-      .map(async _page =>
+      .filter((item) => item.properties.Veranstalter.select === null)
+      .map(async (_page) =>
         notion.pages.update({
           page_id: _page.id,
           properties: {
-            Veranstalter: { select: { name: "<kein>" } }
-          }
+            Veranstalter: { select: { name: "<kein>" } },
+          },
         })
       )
   )
@@ -47,13 +47,13 @@ const standardizeCalendar = async () => {
 
   await Promise.all(
     databasePages
-      .filter(item => item.properties.Format.multi_select.length === 0)
-      .map(async _page =>
+      .filter((item) => item.properties.Format.multi_select.length === 0)
+      .map(async (_page) =>
         notion.pages.update({
           page_id: _page.id,
           properties: {
-            Format: { multi_select: [{ name: "<kein>" }] }
-          }
+            Format: { multi_select: [{ name: "<kein>" }] },
+          },
         })
       )
   )
@@ -82,7 +82,7 @@ exports.getEvents = functions.region("europe-west3").https.onCall(async () => {
   console.log("Get public calendar events!")
 
   const notion = new Client({
-    auth: functions.config().notion.key
+    auth: functions.config().notion.key,
   })
 
   const { results: databasePages } = await notion.databases.query({
@@ -90,32 +90,32 @@ exports.getEvents = functions.region("europe-west3").https.onCall(async () => {
     filter: {
       property: "status",
       select: {
-        equals: "öffentliche VA"
-      }
-    }
+        equals: "öffentliche VA",
+      },
+    },
   })
 
   const events = Promise.all(
-    databasePages.map(async _page => {
+    databasePages.map(async (_page) => {
       const page = await notion.pages.retrieve({
-        page_id: _page.id
+        page_id: _page.id,
       })
 
       const content = page.properties
 
       return {
         id: _page.id,
-        title: content.Name.title.map(item => item.plain_text)[0],
+        title: content.Name.title.map((item) => item.plain_text)[0],
         subtitle: content.webseite_untertitel.rich_text.map(
-          item => item.plain_text
+          (item) => item.plain_text
         ),
         description: content.webseite_text.rich_text.map(
-          item => item.plain_text
+          (item) => item.plain_text
         ),
         date: content.Datum.date,
         link: content.link.url,
         icon: page.icon?.emoji,
-        cover: (cover => {
+        cover: ((cover) => {
           if (!cover) return null
 
           switch (cover.type) {
@@ -127,7 +127,7 @@ exports.getEvents = functions.region("europe-west3").https.onCall(async () => {
             default:
               return null
           }
-        })(page.cover)
+        })(page.cover),
       }
     })
   )

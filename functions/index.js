@@ -12,7 +12,8 @@ const standardizeCalendar = async () => {
   const { results: databasePages } = await notion.databases.query({
     database_id: DB
   })
-  console.log("QUERY databasePages")
+  console.log("Query Notion Calendar Database")
+  console.log(`Found total ${databasePages.length} entries in calendar!`)
 
   await Promise.all(
     databasePages
@@ -28,7 +29,7 @@ const standardizeCalendar = async () => {
         })
       )
   )
-  console.log("UPDATE no status")
+  console.log("Update Calendar entries with no status!")
 
   await Promise.all(
     databasePages
@@ -42,7 +43,7 @@ const standardizeCalendar = async () => {
         })
       )
   )
-  console.log("UPDATE no VA")
+  console.log("Update Calendar entries with no VA!")
 
   await Promise.all(
     databasePages
@@ -56,12 +57,12 @@ const standardizeCalendar = async () => {
         })
       )
   )
-  console.log("UPDATE no format")
+  console.log("Update Calendar entries with no format!")
 }
 
 exports.scheduleStandardizeCalendar = functions
   .region("europe-west3")
-  .pubsub.schedule("0 0 1 * *")
+  .pubsub.schedule("0 0 * * *")
   .timeZone("Europe/London")
   .onRun(async () => {
     console.log("schedule standardize calendar")
@@ -78,7 +79,7 @@ exports.runStandardizeCalendar = functions
   })
 
 exports.getEvents = functions.region("europe-west3").https.onCall(async () => {
-  console.log("Get calendar events!")
+  console.log("Get public calendar events!")
 
   const notion = new Client({
     auth: functions.config().notion.key

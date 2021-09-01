@@ -7,6 +7,6 @@ module.exports = {
   extends: ["eslint:recommended", "google"],
   rules: {
     quotes: ["error", "double"],
-    semi: false
+    semi: 0
   }
 }

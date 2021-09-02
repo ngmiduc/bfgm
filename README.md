@@ -18,7 +18,7 @@ This website is hosted on Firebase (Google Cloud Plattform) and uses the followi
 4. `cd` into the project folder
 5. Installing dependencies with `npm i`
 6. `cd functions` into `functions` folder inside the project folder
-7. Download secrets from cloud functions with `firebase functions:config:get > .runtimeconfig.json` <br>
+7. Download secrets from cloud functions with `npm run get:secrets` or `firebase functions:config:get > .runtimeconfig.json` <br>
 This will download the secrets into your functions folder that will be used by the local server emulator
 
 

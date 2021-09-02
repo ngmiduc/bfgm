@@ -66,7 +66,15 @@ exports.scheduleStandardizeCalendar = functions
   .timeZone("Europe/London")
   .onRun(async () => {
     console.log("Run schedule standardize calendar")
-    console.log("Time: ", new Date().toLocaleDateString('de-DE', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }))
+    console.log(
+      "Time: ",
+      new Date().toLocaleDateString("de-DE", {
+        weekday: "long",
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+      })
+    )
 
     await standardizeCalendar()
   })

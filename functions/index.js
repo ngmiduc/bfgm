@@ -65,7 +65,8 @@ exports.scheduleStandardizeCalendar = functions
   .pubsub.schedule("0 0 * * *")
   .timeZone("Europe/London")
   .onRun(async () => {
-    console.log("schedule standardize calendar")
+    console.log("Run schedule standardize calendar")
+    console.log("Time: ", new Date().toLocaleDateString('de-DE', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }))
 
     await standardizeCalendar()
   })
@@ -73,7 +74,7 @@ exports.scheduleStandardizeCalendar = functions
 exports.runStandardizeCalendar = functions
   .region("europe-west3")
   .https.onCall(async () => {
-    console.log("schedule standardize calendar")
+    console.log("Execute standardize calendar")
 
     await standardizeCalendar()
   })

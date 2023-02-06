@@ -1,16 +1,26 @@
 <script setup>
 import Loader from "./components/Loader.vue";
+
+import Header from "./pages/Header.vue";
+import Impress from "./pages/Impress.vue";
+import Calendar from "./pages/Calendar.vue";
 </script>
 
 <template>
-  <Suspense>
-    <template #default>
-      <router-view></router-view>
-    </template>
-    <template #fallback>
-      <Loader />
-    </template>
-  </Suspense>
+  <Header />
+
+  <main>
+    <Suspense>
+      <template #default>
+        <Calendar />
+      </template>
+      <template #fallback>
+        <Loader />
+      </template>
+    </Suspense>
+  </main>
+
+  <Impress />
 </template>
 
 <style>

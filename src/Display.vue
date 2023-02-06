@@ -1,6 +1,6 @@
 <template>
-  <div class="event-content" :class="{ passed: isActual === false }">
-    <div>
+  <div class="event-content">
+    <div v-if="event">
       <img
         :src="
           event.cover
@@ -9,13 +9,16 @@
         "
       />
 
-      <h4>
-        {{ (event.icon || "") + " " + event.title }}
-      </h4>
+      <div class="an" v-if="daysLeft !== 0">In {{ daysLeft }} Tagen!</div>
+      <div class="an" v-else>Heute!</div>
 
-      <h5>
+      <h1>
+        {{ (event.icon || "") + " " + event.title }}
+      </h1>
+
+      <h2>
         {{ event.sub_title }}
-      </h5>
+      </h2>
 
       <div class="dates">
         <a
@@ -66,68 +69,104 @@
           }}
         </span>
       </div>
+    </div>
 
-      <div class="content">
-        <p>
-          {{ event.description.join("") }}
-        </p>
+    <div v-else>
+      <div>
+        .<br />.<br />.<br />.<br />.<br />.<br />.<br />.<br />.<br />.<br />.<br />.<br />.<br />.<br />.<br />.<br />.<br />.<br />.<br />.<br />.<br />.<br />.<br />.<br />.<br />
       </div>
+      <h1>Nichts los demnächst!</h1>
+
+      <h2>Interesse? <br />Schreib uns an: - <i>hi@bfgm.eu</i> - !</h2>
     </div>
   </div>
 </template>
 
 <script>
+import { CloudFunctions } from "@/services/firebase.js";
+import Loader from "./components/Loader.vue";
+
 export default {
-  name: "component-event",
-  props: ["event", "isActual"],
+  name: "display",
+  components: { Loader },
+  async setup() {
+    const getNotionData = async () => {
+      const { data } = await CloudFunctions("getEvents")();
+
+      return data;
+    };
+
+    const events = await getNotionData();
+
+    const sortFn =
+      (direction = "asc") =>
+      (a, b) => {
+        const eventA = new Date(a.date.end || a.date.start);
+        const eventB = new Date(b.date.end || b.date.start);
+        return direction === "asc" ? eventA - eventB : eventB - eventA;
+      };
+
+    const newEvents = events.sort(sortFn("asc")).filter((event) => {
+      let now = new Date();
+      now.setDate(now.getDate() - 1);
+      return new Date(event.date.end) > now;
+    });
+
+    console.log({ newEvents });
+
+    const nextEvent = newEvents[0];
+
+    const eventDate = new Date(nextEvent.date.start.split("T")[0]);
+    const today = new Date(new Date().toISOString().split("T")[0]);
+
+    const Difference_In_Time = eventDate.getTime() - today.getTime();
+
+    // To calculate the no. of days between two dates
+    const Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24);
+
+    return {
+      event: nextEvent,
+      daysLeft: Difference_In_Days,
+    };
+  },
 };
 </script>
 
 <style scoped lang="scss">
 .event-content {
-  display: inline-block;
-  margin: 4px;
-  width: 300px;
-  height: 400px;
+  box-sizing: border-box;
+
+  padding: 16px;
+  width: 100vw;
+  height: 100vh;
   background: rgba(10, 10, 10, 0.9);
-  padding: 2px;
-  border: 8px solid rgba(10, 10, 10, 0.9);
-  overflow-y: scroll;
 
   color: white;
 
-  a {
-    color: white;
+  .an {
+    margin-top: 12px;
+    margin-bottom: 20px;
+    font-size: 30px;
+    font-style: italic;
   }
 
-  transition: all 300ms;
+  a {
+    color: white;
+    text-decoration: none;
+  }
 
-  border-radius: 8px;
+  h1 {
+    text-decoration: underline;
+  }
 
   img {
     border-radius: 4px;
     width: 100%;
-    height: 200px;
+    height: 70vh;
     object-fit: cover;
   }
 
-  &.passed {
-    opacity: 0.8;
-    box-shadow: none;
-
-    &:hover {
-      opacity: 1;
-    }
-  }
-
   .dates {
-    text-align: center;
-  }
-
-  .content {
-    margin-top: 16px;
-
-    white-space: break-spaces;
     text-align: left;
   }
 }

@@ -1,95 +1,85 @@
 <template>
   <div class="calendar">
-    <a-typography-title v-if="upcomingEvents.length !== 0" :level="2">
-      Aktuelle Maßnahmen
-    </a-typography-title>
+    <h3>Aktuelle Maßnahmen</h3>
 
-    <a-row :gutter="[32, 32]" type="flex" justify="center">
-      <a-col
-        :xs="24"
-        :sm="12"
-        :md="12"
-        :lg="6"
-        :xl="6"
-        v-for="event in upcomingEvents"
-        :key="event.id"
-      >
+    <div class="grid">
+      <div v-for="event in upcomingEvents" :key="event.id">
         <CalEvent :event="event" :isActual="true" />
-      </a-col>
-    </a-row>
+      </div>
+    </div>
 
-    <a-divider dashed style="height: 2px; background-color: transparent;" />
+    <div dashed style="height: 2px; background-color: transparent" />
 
-    <a-typography-title :level="2">
-      Vergangene Maßnahmen
-    </a-typography-title>
+    <h3>Vergangene Maßnahmen</h3>
 
-    <a-row :gutter="[16, 16]" type="flex" justify="center">
-      <a-col
-        :xs="24"
-        :sm="12"
-        :md="12"
-        :lg="6"
-        :xl="4"
-        v-for="event in passedEvents"
-        :key="event.id"
-      >
+    <div class="grid">
+      <div v-for="event in passedEvents" :key="event.id">
         <CalEvent :event="event" :isActual="false" />
-      </a-col>
-    </a-row>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-// import axios from "axios"
+import CalEvent from "@/components/Event.vue";
 
-import CalEvent from "@/components/Event.vue"
-
-import { CloudFunctions } from "@/services/firebase.js"
+import { CloudFunctions } from "@/services/firebase.js";
 
 export default {
   name: "calendar",
   components: {
-    CalEvent
+    CalEvent,
   },
   async setup() {
     const getNotionData = async () => {
-      const { data } = await CloudFunctions("getEvents")()
+      const { data } = await CloudFunctions("getEvents")();
 
-      return data
-    }
+      return data;
+    };
 
-    const events = await getNotionData()
+    const events = await getNotionData();
 
-    console.log("render events", events)
+    console.log({ events });
 
-    const sortFn = (direction = "asc") => (a, b) => {
-      const eventA = new Date(a.date.end || a.date.start)
-      const eventB = new Date(b.date.end || b.date.start)
-      return direction === "asc" ? eventA - eventB : eventB - eventA
-    }
+    const sortFn =
+      (direction = "asc") =>
+      (a, b) => {
+        const eventA = new Date(a.date.end || a.date.start);
+        const eventB = new Date(b.date.end || b.date.start);
+        return direction === "asc" ? eventA - eventB : eventB - eventA;
+      };
 
-    const newEvents = events.sort(sortFn("asc")).filter(event => {
-      let now = new Date()
-      now.setDate(now.getDate() - 1)
-      return new Date(event.date.end) > now
-    })
+    const newEvents = events.sort(sortFn("asc")).filter((event) => {
+      let now = new Date();
+      now.setDate(now.getDate() - 1);
+      return new Date(event.date.end) > now;
+    });
 
-    const oldEvents = events.sort(sortFn("desc")).filter(event => {
-      let now = new Date()
-      now.setDate(now.getDate() - 1)
-      return new Date(event.date.end) < now
-    })
+    const oldEvents = events.sort(sortFn("desc")).filter((event) => {
+      let now = new Date();
+      now.setDate(now.getDate() - 1);
+      return new Date(event.date.end) < now;
+    });
 
     return {
       upcomingEvents: newEvents,
-      passedEvents: oldEvents
-    }
-  }
-}
+      passedEvents: oldEvents,
+    };
+  },
+};
 </script>
 
 <style scoped lang="scss">
+.grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+
+  > div {
+  }
+}
+
 .calendar {
   text-align: center;
   padding: 40px 0;

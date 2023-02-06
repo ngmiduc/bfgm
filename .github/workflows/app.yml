@@ -14,12 +14,13 @@ jobs:
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v2.3.2
-      - name: Check package.json
-        run: cat package.json
+
       - name: Install Dependencies
         run: npm ci
+
       - name: Build
         run: npm run build
+
       - name: Deploy to Firebase
         uses: w9jds/firebase-action@master
         with:

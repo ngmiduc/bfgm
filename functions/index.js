@@ -6,10 +6,6 @@ const express = require("express")
 const bodyParser = require("body-parser")
 
 const DB = "54a05f4c38b645a893af5636e6fce91a"
-// const DB_TRANSACTIONS = "0370df006e744bee856b68e554f20f2d"
-// const DB_ACCOUNTS = "4d916526a06d49a9af1834579b7bcc35"
-// const DB_TYPES = "6c1860d362344d6e8fc1e63ff23afd7b"
-// const DB_TAXAREAS = "4ea16c1beae64affa75395aaa320abe5"
 
 const app = express()
 const api = express()
@@ -213,35 +209,3 @@ exports.getEvents = functions.region("europe-west3").https.onCall(async () => {
 
   return events
 })
-
-// exports.getTransactions = functions
-//   .region("europe-west3")
-//   .https.onCall(async () => {
-//     console.log("Get accounting data!")
-//
-//     const notion = new Client({
-//       auth: functions.config().accounting.key,
-//     })
-//
-//     let end = false
-//
-//     // while (!end){
-//
-//     const { results: databasePages } = await notion.databases.query({
-//       database_id: DB_TRANSACTIONS,
-//       page_size: 100,
-//     })
-//
-//     return databasePages.has_more
-//
-//     const data = databasePages.map((_page) => ({
-//       id: _page.id,
-//       title: _page.properties.Beschreibung.title.map(
-//         (item) => item.plain_text
-//       )[0],
-//     }))
-//
-//     // }
-//
-//     return data.length
-//   })

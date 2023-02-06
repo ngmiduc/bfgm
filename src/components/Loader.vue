@@ -1,16 +1,12 @@
-<template>
-  <a-row :gutter="32" type="flex" justify="center">
-    <a-col>
-      <LoadingOutlined :style="{ fontSize: '32px', margin: '60px 0px' }" />
-    </a-col>
-  </a-row>
-</template>
+<template><div class="loading">loading!</div></template>
 
 <script>
-import { LoadingOutlined } from "@ant-design/icons-vue"
-
 export default {
   name: "loader",
-  components: { LoadingOutlined }
-}
+};
 </script>
+<style scoped lang="scss">
+.loading {
+  text-align: center;
+}
+</style>

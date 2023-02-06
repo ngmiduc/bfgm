@@ -1,5 +1,10 @@
-import firebase from "firebase/app"
-import "firebase/functions"
+import { initializeApp } from "firebase/app";
+
+import {
+  getFunctions,
+  httpsCallable,
+  connectFunctionsEmulator,
+} from "firebase/functions";
 
 const firebaseConfig = {
   apiKey: "AIzaSyCe0JXZhgIv90g_btjThMxZtIkRvnVaKtY",
@@ -8,20 +13,15 @@ const firebaseConfig = {
   projectId: "bfgm-e-v",
   storageBucket: "bfgm-e-v.appspot.com",
   messagingSenderId: "998839213804",
-  appId: "1:998839213804:web:9034149231f59e4d32cfc9"
-}
+  appId: "1:998839213804:web:9034149231f59e4d32cfc9",
+};
 
-firebase.initializeApp(firebaseConfig)
+const firebaseApp = initializeApp(firebaseConfig);
+
+const Functions = getFunctions(firebaseApp, "europe-west3");
 
 if (process.env.NODE_ENV !== "production") {
-  firebase
-    .app()
-    .functions("europe-west3")
-    .useFunctionsEmulator("http://localhost:5001")
+  connectFunctionsEmulator(Functions, "localhost", 5001);
 }
 
-export const CloudFunctions = name =>
-  firebase
-    .app()
-    .functions("europe-west3")
-    .httpsCallable(name)
+export const CloudFunctions = (name) => httpsCallable(Functions, name);

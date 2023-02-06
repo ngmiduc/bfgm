@@ -1,60 +1,63 @@
-<template>
-  <div class="impress">
-    <a-typography-title :level="2">Büro für gute Maßnahmen</a-typography-title>
+<script>
+export default {
+  name: "pages-impress",
+};
+</script>
 
-    <a-row :gutter="32" type="flex" justify="center" align="top">
-      <a-col :xs="24" :sm="8" :md="6" :lg="4" :xl="4">
-        <a-typography-title :level="4">Anschrift</a-typography-title>
-        <a-typography-paragraph>
+<template>
+  <footer class="impress">
+    <h2>Büro für gute Maßnahmen</h2>
+
+    <div class="box">
+      <div>
+        <h3>Anschrift</h3>
+        <p>
           Büro für gute Maßnahmen e.V.<br />
           Jordan Strasse 9<br />
           01099 Dresden<br />
           Germany
-        </a-typography-paragraph>
-      </a-col>
+        </p>
+      </div>
 
-      <a-col :xs="24" :sm="8" :md="6" :lg="4" :xl="4">
-        <a-typography-title :level="4">Kontakt</a-typography-title>
-        <a-typography-paragraph>
-          hi@bfgm.eu
-        </a-typography-paragraph>
-      </a-col>
+      <div>
+        <h3>Kontakt</h3>
+        <p>hi@bfgm.eu</p>
+      </div>
 
-      <a-col :xs="24" :sm="8" :md="6" :lg="4" :xl="4">
-        <a-typography-title :level="4"
-          >gesetzliche Vertretung
-        </a-typography-title>
-        <a-typography-paragraph
-          >Louisa Regel<br />
-          Joseph Walther<br />
-          Mareike Pittig<br />
-          Nicolas Regel<br />
-          Minh Duc Nguyen<br
-        /></a-typography-paragraph>
-      </a-col>
+      <div>
+        <h3>gesetzliche Vertretung</h3>
+        <p>
+          Helen Steiner<br />
+          Jakop Reck<br />
+          Minh Duc Nguyen<br />
+        </p>
+      </div>
 
-      <a-col :xs="24" :sm="8" :md="6" :lg="4" :xl="4">
-        <a-typography-title :level="4">Register</a-typography-title>
-        <a-typography-paragraph>
+      <div>
+        <h3>Register</h3>
+        <p>
           Registergericht: Dresden<br />
           Vereinsregister: VR 11706<br />
           Steuernummer: 202/140/20565
-        </a-typography-paragraph>
-      </a-col>
-    </a-row>
-  </div>
+        </p>
+      </div>
+    </div>
+  </footer>
 </template>
-
-<script>
-export default {
-  name: "pages-impress"
-}
-</script>
 
 <style scoped lang="scss">
 .impress {
   text-align: center;
   padding-bottom: 300px;
   padding-top: 40px;
+}
+
+.box {
+  padding: 0 40px;
+
+  display: flex;
+  > div {
+    flex: 1;
+  }
 }
 </style>

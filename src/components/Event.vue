@@ -35,7 +35,7 @@
       <div class="dates">
         <a-typography-text>
           {{
-            new Date(event.date.start)
+            new Date(event.date.start.splt("T")[0].replace(/-/g, "/"))
               .toLocaleDateString("de-DE", {
                 year: "numeric",
                 month: "short",
@@ -51,7 +51,7 @@
           {{
             event.date.end &&
               " -  " +
-                new Date(event.date.end)
+                new Date(event.date.end.splt("T")[0].replace(/-/g, "/"))
                   .toLocaleDateString("de-DE", {
                     year: "numeric",
                     month: "short",

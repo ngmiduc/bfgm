@@ -9,8 +9,9 @@
         "
       />
 
-      <div class="an" v-if="daysLeft !== 0">In {{ daysLeft }} Tagen!</div>
-      <div class="an" v-else>Heute!</div>
+      <div class="an" v-if="daysLeft > 1">In {{ daysLeft }} Tagen!</div>
+      <div class="an" v-if="daysLeft === 0">Heute!</div>
+      <div class="an" v-if="daysLeft === 1">Morgen!</div>
 
       <h1>
         {{ (event.icon || "") + " " + event.title }}
@@ -20,7 +21,7 @@
         {{ event.sub_title }}
       </h2>
 
-      <div class="dates">
+      <div class="web">
         <a
           v-if="event.link"
           key="link"
@@ -53,31 +54,17 @@
               .replace(", 00:00", "")
           }}
         </span>
-        <span>
-          {{
-            event.date.end &&
-            " -  " +
-              new Date(event.date.end)
-                .toLocaleDateString("de-DE", {
-                  year: "numeric",
-                  month: "short",
-                  day: "numeric",
-                  hour: "2-digit",
-                  minute: "2-digit",
-                })
-                .replace(", 00:00", "")
-          }}
-        </span>
       </div>
     </div>
 
     <div v-else>
       <div>
-        .<br />.<br />.<br />.<br />.<br />.<br />.<br />.<br />.<br />.<br />.<br />.<br />.<br />.<br />.<br />.<br />.<br />.<br />.<br />.<br />.<br />.<br />.<br />.<br />.<br />
+        .<br />.<br />.<br />.<br />.<br />.<br />.<br />.<br />.<br />.<br />.<br />.<br />.<br />.<br />.<br />.<br />.<br />.<br />.<br />.<br />.<br />.<br />.<br />.<br />.<br />.<br />.<br />.<br />.<br />.<br />.<br />.<br />.<br />.<br />.<br />.<br />.<br />.<br />.<br />.<br />.<br />.<br />.<br />.<br />.<br />.<br />.<br />.<br />.<br />.<br />
       </div>
-      <h1>Nichts los demnächst!</h1>
+      <h2>Nichts los demnächst...</h2>
 
-      <h2>Interesse? <br />Schreib uns an: - <i>hi@bfgm.eu</i> - !</h2>
+      <h1>Interesse?</h1>
+      <h2>Schreib uns an: - <i>hi@bfgm.eu</i> - !</h2>
     </div>
   </div>
 </template>
@@ -136,7 +123,7 @@ export default {
 .event-content {
   box-sizing: border-box;
 
-  padding: 16px;
+  padding: 40px;
   width: 100vw;
   height: 100vh;
   background: rgba(10, 10, 10, 0.9);
@@ -146,7 +133,7 @@ export default {
   .an {
     margin-top: 12px;
     margin-bottom: 20px;
-    font-size: 30px;
+    font-size: 95px;
     font-style: italic;
   }
 
@@ -156,18 +143,31 @@ export default {
   }
 
   h1 {
+    font-size: 70px;
     text-decoration: underline;
+  }
+
+  h2 {
+    font-size: 60px;
   }
 
   img {
     border-radius: 4px;
     width: 100%;
-    height: 70vh;
+    height: 60vh;
     object-fit: cover;
+  }
+
+  .web {
+    text-align: left;
+
+    font-size: 40px;
   }
 
   .dates {
     text-align: left;
+
+    font-size: 50px;
   }
 }
 </style>

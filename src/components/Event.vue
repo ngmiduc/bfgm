@@ -14,7 +14,7 @@
       </h4>
 
       <h5>
-        {{ event.sub_title }}
+        {{ event.subtitle }}
       </h5>
 
       <div class="dates">

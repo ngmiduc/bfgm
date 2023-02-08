@@ -18,7 +18,7 @@
       </h1>
 
       <h2>
-        {{ event.sub_title }}
+        {{ event.subtitle }}
       </h2>
 
       <div class="web">

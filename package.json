@@ -10,10 +10,15 @@
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore"
   },
   "dependencies": {
+    "@ant-design/icons-vue": "^6.1.0",
+    "ant-design-vue": "^3.2.17",
     "firebase": "^9.17.1",
     "lodash": "^4.17.21",
     "vue": "^3.2.45",
-    "vue-router": "^4.1.6"
+    "vue-carousel": "^0.18.0",
+    "vue-router": "^4.1.6",
+    "vue-slick-carousel": "^1.0.6",
+    "vue3-carousel": "^0.2.12"
   },
   "devDependencies": {
     "@rushstack/eslint-patch": "^1.1.4",

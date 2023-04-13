@@ -4,6 +4,7 @@ import { createRouter, createWebHistory } from "vue-router";
 import App from "./App.vue";
 import Home from "./Home.vue";
 import Display from "./Display.vue";
+import Finance from "./Finance.vue";
 
 const router = createRouter({
   history: createWebHistory(),
@@ -18,6 +19,12 @@ const router = createRouter({
       path: "/display",
       name: "display",
       component: Display,
+    },
+
+    {
+      path: "/finance",
+      name: "finance",
+      component: Finance,
     },
   ],
 });

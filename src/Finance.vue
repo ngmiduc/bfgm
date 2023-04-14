@@ -1,53 +1,90 @@
 <template>
   <div class="container">
-    <TypoTitle :level="2">BFGM.E.V. Jahresbericht</TypoTitle>
+    <TypoTitle :level="4">BFGM.E.V. Jahresbericht</TypoTitle>
+
+    Der EÜR (Einnahmen-Überschuss-Rechnung) ist ein wichtiger Bestandteil des
+    Finanzjahresberichts. In diesem Dokument werden die Konten des Unternehmens
+    aufgeführt sowie die Mittelverwendung in allen Projekten detailliert
+    beschrieben. Die verschiedenen Steuerklassen, in die das Unternehmen
+    unterteilt ist, werden ebenfalls aufgeführt und deren spezifische
+    Kontorahmen verlinkt. Bitte beachten Sie, dass die folgenden Informationen
+    vorläufig sind und sich Änderungen ergeben können.
 
     <Divider />
 
-    <RangePicker :value="range" @change="handleChange" format="YYYY-MM-DD" />
+    <DatePicker
+      :value="year"
+      @change="handleChange"
+      format="YYYY"
+      picker="year"
+    />
 
     <Divider />
 
-    <TypoTitle :level="3">I Konten</TypoTitle>
+    <TypoTitle :level="5">I Konten</TypoTitle>
 
-    <DataTable :data="report.accounts" :schema="schema" />
-
-    <Divider />
-
-    <TypoTitle :level="3">II Projekte</TypoTitle>
-    <DataTable :data="report.projects" :schema="schema" />
-
-    <Divider />
-
-    <TypoTitle :level="3">III Steuerklassen</TypoTitle>
-    <DataTable :data="report.taxCats" :schema="schema" />
+    <DataTable
+      :data="report.accounts"
+      :prevData="prevReport.accounts"
+      :periods="periods"
+    />
 
     <Divider />
 
-    <TypoTitle :level="4">III.I Ideeler Bereich</TypoTitle>
-    <DataTable :data="report.taxIDEEL" :schema="schema" />
+    <TypoTitle :level="5">II Projekte</TypoTitle>
+    <DataTable :data="report.projects" />
 
     <Divider />
 
-    <TypoTitle :level="4">III.II ZweckBereich</TypoTitle>
-    <DataTable :data="report.taxZWECK" :schema="schema" />
+    <TypoTitle :level="5">III Steuerklassen</TypoTitle>
+    <DataTable
+      :data="report.taxCats"
+      :prevData="prevReport.taxCats"
+      :periods="periods"
+    />
 
     <Divider />
 
-    <TypoTitle :level="4">III.III Wirtschaftlicher Bereich</TypoTitle>
-    <DataTable :data="report.taxWIRTS" :schema="schema" />
+    <TypoTitle :level="5">Ideeler Bereich</TypoTitle>
+    <DataTable
+      :data="report.taxIDEEL"
+      :prevData="prevReport.taxIDEEL"
+      :periods="periods"
+    />
 
     <Divider />
 
-    <TypoTitle :level="4">III.IV Vermögensbereich</TypoTitle>
-    <DataTable :data="report.taxVERMO" :schema="schema" />
+    <TypoTitle :level="5">Zweckbereich</TypoTitle>
+    <DataTable
+      :data="report.taxZWECK"
+      :prevData="prevReport.taxZWECK"
+      :periods="periods"
+    />
+
+    <Divider />
+
+    <TypoTitle :level="5">Wirtschaftlicher Bereich</TypoTitle>
+    <DataTable
+      :data="report.taxWIRTS"
+      :prevData="prevReport.taxWIRTS"
+      :periods="periods"
+    />
+
+    <Divider />
+
+    <TypoTitle :level="5">Vermögensbereich</TypoTitle>
+    <DataTable
+      :data="report.taxVERMO"
+      :prevData="prevReport.taxVERMO"
+      :periods="periods"
+    />
   </div>
 </template>
 
 <script>
 import "ant-design-vue/dist/antd.css"
 
-import { ref, watchEffect } from "vue"
+import { ref, watchEffect, computed } from "vue"
 
 import { CloudFunctions } from "@/services/firebase.js"
 import DataTable from "@/components/DataTable.vue"
@@ -57,97 +94,55 @@ import dayjs from "dayjs"
 export default {
   name: "finance-page",
   components: {
-    RangePicker: DatePicker.RangePicker,
+    DatePicker,
     Divider,
     DataTable,
     TypoTitle: Typography.Title,
   },
   async setup() {
-    const range = ref([dayjs().startOf("year"), dayjs().endOf("year")])
+    const year = ref(dayjs())
     const report = ref({})
+    const prevReport = ref({})
 
     const handleChange = (val) => {
-      range.value = val
+      year.value = val
     }
 
     watchEffect(async () => {
-      const fetch = async () => {
+      const fetch = async (startDate, endDate) => {
         const { data } = await CloudFunctions("getReport")({
-          startDate: range.value[0].format("YYYY-MM-DD"),
-          endDate: range.value[1].format("YYYY-MM-DD"),
+          startDate,
+          endDate,
         })
 
         return data
       }
 
-      const data = await fetch()
+      const data = await fetch(
+        year.value.startOf("year").format("YYYY-MM-DD"),
+        year.value.endOf("year").format("YYYY-MM-DD")
+      )
+
+      const prevData = await fetch(
+        year.value.add(-1, "year").startOf("year").format("YYYY-MM-DD"),
+        year.value.add(-1, "year").endOf("year").format("YYYY-MM-DD")
+      )
 
       report.value = data
+      prevReport.value = prevData
     })
 
     return {
-      range,
+      year,
       handleChange,
       report,
-      dayjs,
-      schema: [
-        {
-          title: "",
-          dataIndex: "key",
-          key: "key",
-        },
-        {
-          title: "income",
-          dataIndex: "income",
-          key: "income",
-          align: "right",
-          width: 125,
-          customRender: ({ value }) => {
-            return new Intl.NumberFormat("en-US", {
-              style: "currency",
-              currency: "EUR",
-
-              // These options are needed to round to whole numbers if that's what you want.
-              minimumFractionDigits: 2, // (this suffices for whole numbers, but will print 2500.10 as $2,500.1)
-              maximumFractionDigits: 2, // (causes 2500.99 to be printed as $2,501)
-            }).format(value)
-          },
-        },
-        {
-          title: "outcome",
-          dataIndex: "outcome",
-          key: "outcome",
-          align: "right",
-          width: 125,
-          customRender: ({ value }) => {
-            return new Intl.NumberFormat("en-US", {
-              style: "currency",
-              currency: "EUR",
-
-              // These options are needed to round to whole numbers if that's what you want.
-              minimumFractionDigits: 2, // (this suffices for whole numbers, but will print 2500.10 as $2,500.1)
-              maximumFractionDigits: 2, // (causes 2500.99 to be printed as $2,501)
-            }).format(value)
-          },
-        },
-        {
-          title: "balance",
-          dataIndex: "balance",
-          key: "balance",
-          align: "right",
-          width: 125,
-          customRender: ({ value }) => {
-            return new Intl.NumberFormat("en-US", {
-              style: "currency",
-              currency: "EUR",
-
-              // These options are needed to round to whole numbers if that's what you want.
-              minimumFractionDigits: 2, // (this suffices for whole numbers, but will print 2500.10 as $2,500.1)
-              maximumFractionDigits: 2, // (causes 2500.99 to be printed as $2,501)
-            }).format(value)
-          },
-        },
-      ],
+      prevReport,
+      periods: computed(() => {
+        return {
+          period: year.value.format("YYYY"),
+          prevPeriod: year.value.add(-1, "year").format("YYYY"),
+        }
+      }),
     }
   },
 }
@@ -160,7 +155,7 @@ export default {
   // align-items: center;
   // justify-content: center;
   width: 100vw;
-  padding: 50px 40px;
+  padding: 16px;
   background-color: white;
 }
 </style>

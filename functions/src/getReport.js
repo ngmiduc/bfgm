@@ -63,11 +63,14 @@ exports.getReport = async ({ startDate, endDate }, context) => {
 
   // console.log("reportAccounts:", reportAccounts)
 
-  const reportTaxCategory = _.chain(transactions)
-    .groupBy("tax_category")
-    .mapValues((v, id) => calcCharges(v, id))
-    .values()
-    .value()
+  const reportTaxCategory = [
+    ..._.chain(transactions)
+      .groupBy("tax_category")
+      .mapValues((v, id) => calcCharges(v, id))
+      .values()
+      .value(),
+    { key: "VERMO", balance: 0, income: 0, outcome: 0 },
+  ]
 
   // console.log("reportTaxCategory:", reportTaxCategory)
 

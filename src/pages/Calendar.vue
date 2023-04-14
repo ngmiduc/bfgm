@@ -3,9 +3,12 @@
     <h3>Aktuelle Maßnahmen</h3>
 
     <div class="grid">
-      <div v-for="event in upcomingEvents" :key="event.id">
-        <CalEvent :event="event" :isActual="true" />
-      </div>
+      <CalEvent
+        :event="event"
+        :isActual="true"
+        v-for="event in upcomingEvents"
+        :key="event.id"
+      />
     </div>
 
     <div dashed style="height: 2px; background-color: transparent" />
@@ -13,75 +16,88 @@
     <h3>Vergangene Maßnahmen</h3>
 
     <div class="grid">
-      <div v-for="event in passedEvents" :key="event.id">
-        <CalEvent :event="event" :isActual="false" />
-      </div>
+      <CalEvent
+        v-for="event in passedEvents"
+        :key="event.id"
+        :event="event"
+        :isActual="false"
+      />
     </div>
   </div>
 </template>
 
 <script>
-import CalEvent from "@/components/Event.vue";
+import CalEvent from "@/components/Event.vue"
 
-import { CloudFunctions } from "@/services/firebase.js";
+import { CloudFunctions } from "@/services/firebase.js"
 
 export default {
-  name: "calendar",
+  name: "page-calendar",
   components: {
     CalEvent,
   },
   async setup() {
     const getNotionData = async () => {
-      const { data } = await CloudFunctions("getEvents")();
+      const { data } = await CloudFunctions("getEvents")()
 
-      return data;
-    };
+      return data
+    }
 
-    const events = await getNotionData();
+    const events = await getNotionData()
 
-    console.log({ events });
+    console.log({ events })
 
     const sortFn =
       (direction = "asc") =>
       (a, b) => {
-        const eventA = new Date(a.date.end || a.date.start);
-        const eventB = new Date(b.date.end || b.date.start);
-        return direction === "asc" ? eventA - eventB : eventB - eventA;
-      };
+        const eventA = new Date(a.date.end || a.date.start)
+        const eventB = new Date(b.date.end || b.date.start)
+        return direction === "asc" ? eventA - eventB : eventB - eventA
+      }
 
     const newEvents = events.sort(sortFn("asc")).filter((event) => {
-      let now = new Date();
-      now.setDate(now.getDate() - 1);
-      return new Date(event.date.end) > now;
-    });
+      let now = new Date()
+      now.setDate(now.getDate() - 1)
+      return new Date(event.date.end) > now
+    })
 
     const oldEvents = events.sort(sortFn("desc")).filter((event) => {
-      let now = new Date();
-      now.setDate(now.getDate() - 1);
-      return new Date(event.date.end) < now;
-    });
+      let now = new Date()
+      now.setDate(now.getDate() - 1)
+      return new Date(event.date.end) < now
+    })
 
     return {
       upcomingEvents: newEvents,
       passedEvents: oldEvents,
-    };
+    }
   },
-};
+}
 </script>
 
 <style scoped lang="scss">
 .grid {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
 
   > div {
+    width: 100vw;
+
+    @media (min-width: 768px) {
+      width: 50vw;
+    }
+
+    @media (min-width: 1268px) {
+      width: 33vw;
+    }
   }
 }
 
 .calendar {
-  text-align: center;
-  padding: 40px 0;
+  h3 {
+    border-bottom: 1px solid black;
+    margin: 0;
+    padding: 16px;
+  }
 }
 </style>

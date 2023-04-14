@@ -1,13 +1,11 @@
 <script>
 export default {
   name: "pages-impress",
-};
+}
 </script>
 
 <template>
   <footer class="impress">
-    <h2>Büro für gute Maßnahmen</h2>
-
     <div class="box">
       <div>
         <h3>Anschrift</h3>
@@ -49,15 +47,18 @@ export default {
 .impress {
   text-align: center;
   padding-bottom: 300px;
-  padding-top: 40px;
+  // padding-top: 40px;
 }
 
 .box {
-  padding: 0 40px;
+  // padding: 0 40px;
 
   display: flex;
   > div {
+    padding-top: 40px;
     flex: 1;
+    border-left: 1px solid black;
+    border-bottom: 1px solid black;
   }
 }
 </style>

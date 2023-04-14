@@ -1,12 +1,18 @@
-<template><div class="loading">loading!</div></template>
+<template>
+  <div class="loading"><loading-outlined /></div>
+</template>
 
 <script>
+import { LoadingOutlined } from "@ant-design/icons-vue"
+
 export default {
-  name: "loader",
-};
+  name: "component-loader",
+  components: { LoadingOutlined },
+}
 </script>
 <style scoped lang="scss">
 .loading {
   text-align: center;
+  padding: 50px;
 }
 </style>

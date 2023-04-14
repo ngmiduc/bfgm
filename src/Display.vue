@@ -83,58 +83,58 @@
 </template>
 
 <script>
-import { CloudFunctions } from "@/services/firebase.js";
-import Loader from "./components/Loader.vue";
+import { CloudFunctions } from "@/services/firebase.js"
+import Loader from "./components/Loader.vue"
 // If you are using PurgeCSS, make sure to whitelist the carousel CSS classes
-import "vue3-carousel/dist/carousel.css";
-import { Carousel, Slide, Pagination, Navigation } from "vue3-carousel";
+import "vue3-carousel/dist/carousel.css"
+import { Carousel, Slide, Pagination, Navigation } from "vue3-carousel"
 
 export default {
   name: "display",
   components: { Loader, Carousel, Slide, Pagination, Navigation },
   async setup() {
     const getNotionData = async () => {
-      const { data } = await CloudFunctions("getNextEvents")();
+      const { data } = await CloudFunctions("getNextEvents")()
 
-      return data;
-    };
+      return data
+    }
 
-    const events = await getNotionData();
+    const events = await getNotionData()
 
     const sortFn =
       (direction = "asc") =>
       (a, b) => {
-        const eventA = new Date(a.date.end || a.date.start);
-        const eventB = new Date(b.date.end || b.date.start);
-        return direction === "asc" ? eventA - eventB : eventB - eventA;
-      };
+        const eventA = new Date(a.date.end || a.date.start)
+        const eventB = new Date(b.date.end || b.date.start)
+        return direction === "asc" ? eventA - eventB : eventB - eventA
+      }
 
     const newEvents = events
       .sort(sortFn("asc"))
       .filter((event) => {
-        let now = new Date();
-        now.setDate(now.getDate() - 1);
-        return new Date(event.date.end) > now;
+        let now = new Date()
+        now.setDate(now.getDate() - 1)
+        return new Date(event.date.end) > now
       })
       .map((event) => {
-        const eventDate = new Date(event.date.start.split("T")[0]);
-        const today = new Date(new Date().toISOString().split("T")[0]);
+        const eventDate = new Date(event.date.start.split("T")[0])
+        const today = new Date(new Date().toISOString().split("T")[0])
 
-        const Difference_In_Time = eventDate.getTime() - today.getTime();
+        const Difference_In_Time = eventDate.getTime() - today.getTime()
 
         // To calculate the no. of days between two dates
-        const Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24);
+        const Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24)
 
-        return { ...event, daysLeft: Difference_In_Days };
-      });
+        return { ...event, daysLeft: Difference_In_Days }
+      })
 
-    console.log({ newEvents });
+    console.log({ newEvents })
 
     return {
       events: newEvents,
-    };
+    }
   },
-};
+}
 </script>
 
 <style scoped lang="scss">
@@ -168,9 +168,11 @@ export default {
     font-size: 70px;
     text-decoration: underline;
     margin-top: 0;
+    color: white;
   }
 
   h2 {
+    color: white;
     font-size: 60px;
   }
 

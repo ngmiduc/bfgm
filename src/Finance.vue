@@ -52,6 +52,9 @@
             },
           },
           xAxis: {
+            tickLength: 0,
+            gridLineColor: '#ffffff',
+            lineColor: '#ffffff',
             categories: analytics.totalMonthlyCapiyal.map((item) => item.key),
           },
           series: [
@@ -120,6 +123,9 @@
             },
           },
           xAxis: {
+            tickLength: 0,
+            gridLineColor: '#ffffff',
+            lineColor: '#ffffff',
             categories: periodKeys,
           },
           series: [
@@ -196,6 +202,9 @@
             },
           },
           xAxis: {
+            tickLength: 0,
+            gridLineColor: '#ffffff',
+            lineColor: '#ffffff',
             categories: periodKeys,
           },
           series: [
@@ -274,6 +283,61 @@
           :value="charges.ideel.totalMonthlyOutcome"
         />
       </Space>
+
+      <Divider />
+
+      <Chart
+        :options="{
+          title: {
+            text: 'Fixkosten vs. Mitgliedsbeiträge / Monat',
+            align: 'left',
+          },
+          credits: {
+            enabled: false,
+          },
+          yAxis: {
+            title: {
+              enabled: false,
+              text: '€',
+            },
+          },
+          xAxis: {
+            tickLength: 0,
+            gridLineColor: '#ffffff',
+            lineColor: '#ffffff',
+            categories: periodKeys,
+          },
+          series: [
+            {
+              name: 'Fixkosten',
+              type: 'spline',
+              data: periodKeys.map(
+                (key) =>
+                  analytics.monthlyFixCosts.find((i) => i.key === key)
+                    ?.outcome || 0
+              ),
+              color: '#e74c3c',
+              marker: {
+                enabled: false,
+              },
+            },
+            {
+              name: 'Mitgliedsbeiträge',
+              type: 'spline',
+              data: periodKeys.map(
+                (key) =>
+                  analytics.monthlyMembers.find((i) => i.key === key)?.income ||
+                  0
+              ),
+              color: '#3498db',
+              marker: {
+                enabled: false,
+              },
+            },
+          ],
+        }"
+      />
+
       <Divider />
       <DataTable
         :data="report.taxIDEEL"
@@ -417,19 +481,20 @@ export default {
 
       loading.value = true
 
-      const anaData = await fetchAnalytics(
-        year.value.add(-1, "year").startOf("year").format("YYYY-MM-DD"),
-        year.value.endOf("year").format("YYYY-MM-DD")
-      )
-      const data = await fetchReport(
-        year.value.startOf("year").format("YYYY-MM-DD"),
-        year.value.endOf("year").format("YYYY-MM-DD")
-      )
-
-      const prevData = await fetchReport(
-        year.value.add(-1, "year").startOf("year").format("YYYY-MM-DD"),
-        year.value.add(-1, "year").endOf("year").format("YYYY-MM-DD")
-      )
+      const [anaData, data, prevData] = await Promise.all([
+        fetchAnalytics(
+          year.value.add(-1, "year").startOf("year").format("YYYY-MM-DD"),
+          year.value.endOf("year").format("YYYY-MM-DD")
+        ),
+        fetchReport(
+          year.value.startOf("year").format("YYYY-MM-DD"),
+          year.value.endOf("year").format("YYYY-MM-DD")
+        ),
+        fetchReport(
+          year.value.add(-1, "year").startOf("year").format("YYYY-MM-DD"),
+          year.value.add(-1, "year").endOf("year").format("YYYY-MM-DD")
+        ),
+      ])
 
       loading.value = false
 

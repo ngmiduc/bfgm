@@ -71,6 +71,31 @@ exports.getAnalytics = async ({ startDate, endDate }, context) => {
     .values()
     .value()
 
+  const monthlyMembers = _.chain(periodTransactions)
+    .filter(
+      (i) =>
+        i.tax_category === "IDEEL" && i.category === "2110 Mitgliedsbeiträge"
+    )
+    .groupBy((item) => item.date.toDate().toISOString().slice(0, 7))
+    .mapValues((v, id) => calcCharges(v, id))
+    .values()
+    .value()
+
+  const monthlyFixCosts = _.chain(periodTransactions)
+    .filter(
+      (i) =>
+        i.tax_category === "IDEEL" &&
+        ![
+          "2552 Ehrenamtspauschale",
+          "2900 Sonstige Kosten",
+          "0705 Geldtransit",
+        ].includes(i.category)
+    )
+    .groupBy((item) => item.date.toDate().toISOString().slice(0, 7))
+    .mapValues((v, id) => calcCharges(v, id))
+    .values()
+    .value()
+
   const analyticsMonthlyZWECK = _.chain(periodTransactions)
     .filter((i) => i.tax_category === "ZWECK")
     .groupBy((item) => item.date.toDate().toISOString().slice(0, 7))
@@ -96,6 +121,8 @@ exports.getAnalytics = async ({ startDate, endDate }, context) => {
     totalMonthlyCapiyal,
     totalCapital: _.sumBy(transactions, "balance"),
     monthly: analyticsMonthly,
+    monthlyMembers,
+    monthlyFixCosts,
     monthlyIDEEL: analyticsMonthlyIDEEL,
     monthlyZWECK: analyticsMonthlyZWECK,
     monthlyWIRTS: analyticsMonthlyWIRTS,

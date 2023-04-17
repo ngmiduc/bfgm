@@ -17,21 +17,21 @@
                 title: periods.prevPeriod,
                 children: [
                   {
-                    title: 'Eingang',
+                    title: '↗ Eingang',
                     dataIndex: 'income_prev',
                     key: 'income_prev',
                     align: 'right',
                     width: 125,
                   },
                   {
-                    title: 'Ausgang',
+                    title: '↘ Ausgang',
                     dataIndex: 'outcome_prev',
                     key: 'outcome_prev',
                     align: 'right',
                     width: 125,
                   },
                   {
-                    title: 'Balance',
+                    title: '∑ Balance',
                     dataIndex: 'balance_prev',
                     key: 'balance_prev',
                     align: 'right',
@@ -44,21 +44,21 @@
                 title: periods.period,
                 children: [
                   {
-                    title: 'Eingang',
+                    title: '↗ Eingang',
                     dataIndex: 'income',
                     key: 'income',
                     align: 'right',
                     width: 125,
                   },
                   {
-                    title: 'Ausgang',
+                    title: '↘ Ausgang',
                     dataIndex: 'outcome',
                     key: 'outcome',
                     align: 'right',
                     width: 125,
                   },
                   {
-                    title: 'Balance',
+                    title: '∑ Balance',
                     dataIndex: 'balance',
                     key: 'balance',
                     align: 'right',

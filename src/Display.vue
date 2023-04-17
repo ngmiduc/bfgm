@@ -84,14 +84,14 @@
 
 <script>
 import { CloudFunctions } from "@/services/firebase.js"
-import Loader from "./components/Loader.vue"
+// import Loader from "./components/Loader.vue"
 // If you are using PurgeCSS, make sure to whitelist the carousel CSS classes
 import "vue3-carousel/dist/carousel.css"
-import { Carousel, Slide, Pagination, Navigation } from "vue3-carousel"
+import { Carousel, Slide } from "vue3-carousel"
 
 export default {
-  name: "display",
-  components: { Loader, Carousel, Slide, Pagination, Navigation },
+  name: "page-display",
+  components: { Carousel, Slide },
   async setup() {
     const getNotionData = async () => {
       const { data } = await CloudFunctions("getNextEvents")()

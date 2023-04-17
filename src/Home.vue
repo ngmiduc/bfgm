@@ -1,9 +1,9 @@
 <script setup>
-import Loader from "./components/Loader.vue";
+import Loader from "./components/Loader.vue"
 
-import Header from "./pages/Header.vue";
-import Impress from "./pages/Impress.vue";
-import Calendar from "./pages/Calendar.vue";
+import Header from "./pages/Header.vue"
+import Impress from "./pages/Impress.vue"
+import Calendar from "./pages/Calendar.vue"
 </script>
 
 <template>
@@ -44,5 +44,11 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
+}
+
+@media print {
+  .highcharts-root {
+    display: none;
+  }
 }
 </style>
